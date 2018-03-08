@@ -1,0 +1,50 @@
+<?php
+   require_once('_inc.php');
+   include("../dbconfig.php");
+?>
+<?php 
+	$db_1 = mysql_connect($dbhost, $dbuser, $dbpassword)
+	or die("连接错误: " . mysql_error());
+
+	mysql_select_db($database) or die("Error conecting to db.");
+    $rev_oper = $_POST['oper'];
+    switch($rev_oper)
+    {
+    	case 'del':
+    		$rev_id = $_POST['bid'];
+    		$format = "delete from specip where id=%d;";
+		
+			$SQL = sprintf($format,$rev_id);
+			$result = mysql_query($SQL);
+    		break;
+    	case 'edit':
+    		$rev_id = $_POST['bid'];
+    		$rev_ip = $_POST['ip'];
+			$rev_pass = $_POST['pass'];
+		//	echo $rev_mac; 
+			$rev_des = $_POST['description'];
+
+			$format = "update specip set pass=%d, description='%s' where id=%d;";
+		
+			$SQL = sprintf($format,$rev_pass,$rev_des,$rev_id);
+			$result = mysql_query($SQL);
+    		break;
+    	case 'add':
+			$rev_ip = $_POST['ip'];
+			$rev_des = $_POST['description'];
+			$rev_pass = $_POST['pass'];
+		/*	$format = "select count(*) from specip where ip='%s';";
+			$SQL = sprintf($format,$rev_ip);
+			$result = mysql_query($SQL);
+			$count=$result[0]['count'];*/
+			
+			$SQL = "insert into specip(`ip`,`pass`,`description`) values ('$rev_ip',$rev_pass,'$rev_des')";
+			$result = mysql_query($SQL);
+	    		break;
+    	default:    		
+    		return;	
+    }
+	mysql_close($db_1);
+	$response->msg='保存成功';
+	echo json_encode($response);
+?>

@@ -1,0 +1,64 @@
+<?php
+
+
+ require_once('_inc.php');
+?>
+
+
+<?php
+  
+	$page = $_REQUEST['page'];
+	$limit= $_REQUEST['rows'];
+	$sidx = $_REQUEST['sidx'];
+	$sord = $_REQUEST['sord']; 
+	if(!$sidx) $sidx =1;
+   $count=5;   
+ 	if( $count >0 ) {
+		$total_pages = ceil($count/$limit);
+	} else {
+		$total_pages = 0;
+	}
+	if ($page > $total_pages) $page=$total_pages;
+	$start = $limit*$page - $limit; // do not put $limit*($page - 1)
+	
+	if($start <0) $start = 0;
+	
+  	 $responce->page = $page;
+	 $responce->total = $total_pages;
+	 $responce->records = $count;
+    
+    
+
+    $sql_key="select * from filecat;";
+    $keywords=$db->fetchRows($sql_key);
+
+    $keywordarr=explode('|',trim($keywords));
+   
+
+      $i=0;
+     foreach ($keywordarr as $row)
+                    {
+                     if($row!="")
+                     {
+                      $key=explode(',',$row);
+                      $keyword=$key[0];                   
+                     if ($key[1]=='1' || $key[1]=='3'  )
+
+                             $block = "阻挡";
+                     else
+                             $block= "放行";
+                     if ($key[1]=='2' || $key[1]=='3'  )
+                             $log = "是";
+                     else
+                             $log= "否";
+                                   
+
+                     $responce->rows[$i]['cell']=array($keyword,$block,$log);                
+                     $i++;}
+                     };       
+            echo json_encode($responce);
+?> 
+
+
+
+

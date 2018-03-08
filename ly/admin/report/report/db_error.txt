@@ -1,0 +1,1028 @@
+[query2 module:NULL]--[time:2010-05-07 23:07:03]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:04]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:04]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:05]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:06]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:06]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:07]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:08]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:10]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:11]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:14]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:15]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:16]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:16]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:16]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:17]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:19]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:20]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:20]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:21]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:21]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:22]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:35]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:36]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:36]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:36]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:37]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:37]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-07 23:07:41]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:41]
+SQL:call updownflow_all('201005flowdata',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-07 23:07:48]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:48]
+SQL:call top10account_updownflow_all('201005flowdata',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-07 23:07:51]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:51]
+SQL:call top10accountblock_all('201005flowdata',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-07 23:07:52]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:52]
+SQL:call top10passpro_all('201005flowdata',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-07 23:07:53]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:53]
+SQL:call top10blockpro_all('201005flowdata',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-07 23:07:53]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:53]
+SQL:call top10passweb_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-07 23:07:54]
+SQL:call top10blockpro(20100508,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-07 23:07:54]
+SQL:call top10passwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:04]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=3) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:05]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=2) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:06]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=1) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:08]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=3) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:11]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=2) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:13]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=1) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:20]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=3) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:23]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=3) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:08:25]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=2) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2one module:NULL]--[time:2010-05-07 23:27:46]
+SQL:SELECT COUNT(*) AS count FROM 201005web where (get_type=3) and (logtime between 1273269600 and 1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 03:17:21]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:17:22]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:17:22]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:17:23]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:17:23]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:17:24]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:18:58]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:18:59]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:18:59]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:18:59]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:00]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:00]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:00]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:01]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:01]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:02]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:02]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:04]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:05]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:05]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:05]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:05]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:06]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:06]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:07]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:07]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:07]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:08]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:08]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:09]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:09]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:09]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:10]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:10]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 03:19:10]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:22:19]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:22:19]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:22:21]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:22:22]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:22:22]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:22:23]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:28:30]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:28:30]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:28:31]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:28:31]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:28:32]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:37:17]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:37:18]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:37:18]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:37:19]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:37:19]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:37:57]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:38:10]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 04:38:27]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:04]
+SQL:call top10account_updownflow_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:09]
+SQL:call top10accountblock_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:11]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:15]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:16]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:19]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:20]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:21]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:21]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:21]
+SQL:call top10accountblock_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:22]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:22]
+SQL:call top10account_updownflow_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:22]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:24]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:24]
+SQL:call top10account_updownflow_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:24]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:24]
+SQL:call top10accountblock_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:27]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:27]
+SQL:call top10accountblock_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:27]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:28]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:40]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:44]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:44]
+SQL:call top10accountblock_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:44]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 04:39:44]
+SQL:call top10account_updownflow_all('201003flowdata',1268002800,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 04:39:45]
+SQL:call top10blockpro(20100308,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:11:37]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:06]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:14]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:43]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:46]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:54]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:56]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:24:57]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:25:36]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:25:37]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 05:33:06]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:33:07]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:33:20]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:33:21]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:15]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:16]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:20]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:20]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:42]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:43]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:47]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:34:48]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:35:28]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:35:29]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:38:59]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:41:33]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:42:32]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:42:33]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:43:33]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:43:36]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:44:38]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:44:47]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:44:51]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:45:14]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 05:45:15]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:03:38]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:04:35]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:04:39]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:05:12]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:06:40]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 06:06:41]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 06:07:56]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:07:59]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:08:26]
+SQL:
+error:SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+
+[query2 module:NULL]--[time:2010-05-08 06:08:36]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:08:45]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:08:48]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:08:49]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:08:51]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:08:52]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:08:54]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:01]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:21]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:24]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:29]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:30]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:30]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:30]
+SQL:call top10accountblock_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:09:31]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:09:31]
+SQL:call top10account_updownflow_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:09:31]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:11:34]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:11:55]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:11:59]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:11:59]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:13:49]
+SQL:call top10blockpro(20100301,20100303,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:13:49]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:13:53]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:14:06]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:14:06]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:14:49]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:14:53]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:14:53]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:05]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:11]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:12]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:13]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:14]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:14]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:15]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:15]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:35]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:15:35]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:16:05]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:16:05]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:16:07]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:16:13]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1267570800)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:00]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:23:00]
+SQL:call top10accountblock_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:00]
+SQL:call top10accountblock_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:00]
+SQL:call top10blockpro(20100302,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:23:08]
+SQL:call top10account_updownflow_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:09]
+SQL:call top10accountblock_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:14]
+SQL:call top10account_updownflow_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:16]
+SQL:call top10accountblock_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:24]
+SQL:call top10account_updownflow_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:23:25]
+SQL:call top10accountblock_all('201003flowdata',1267484400,1273269600)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:27:55]
+SQL:call top10blockpro(20100301,20100402,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:28:03]
+SQL:call top10blockpro(20100301,20100402,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:28:28]
+SQL:call top10blockpro(20100301,20100402,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:28:28]
+SQL:call top10account_updownflow_all('201003flowdata',1267398000,1270159200)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:28:29]
+SQL:call top10blockpro(20100301,20100402,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:28:29]
+SQL:call top10accountblock_all('201003flowdata',1267398000,1270159200)
+error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
+
+[query2 module:NULL]--[time:2010-05-08 06:33:35]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:33:39]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:33:43]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:33:46]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:37:47]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:39:27]
+SQL:call top10blockpro(20100301,20100402,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:40:41]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:40:51]
+SQL:call top10blockpro(20100301,20100508,0,0,0,0)
+error:SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE baseconfig.top10blockpro; expected 2, got 6
+
+[query2 module:NULL]--[time:2010-05-08 06:53:39]
+SQL:call top10passwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:53:39]
+SQL:call top10blockwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:54:18]
+SQL:call top10passwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:54:18]
+SQL:call top10blockwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:59:14]
+SQL:call top10passweb_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:59:14]
+SQL:call top10blockweb_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:59:57]
+SQL:call top10passweb_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 06:59:57]
+SQL:call top10blockweb_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 07:20:01]
+SQL:call top10passwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-08 07:20:01]
+SQL:call top10blockwebcat_all('201005web',1273269600,1273269600)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005web' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-09 04:31:43]
+SQL:call top10account_updownflow_all('201005flowdata',1273356000,1273356000)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-09 04:31:44]
+SQL:call updownflow_all('201005flowdata',1273356000,1273356000)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+
+[query2 module:NULL]--[time:2010-05-09 04:32:07]
+SQL:call top10account_updownflow_all('201005flowdata',1273356000,1273356000)
+error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'baseconfig.201005flowdata' doesn't exist
+

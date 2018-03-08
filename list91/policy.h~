@@ -1,0 +1,19 @@
+#ifndef _POLICY_H
+#define _POLICY_H
+
+typedef struct _TPolicyinfo{
+	u32 id;
+	u32 pass;
+	u32 log;
+}TPolicyinfo;
+
+typedef struct _TPolicy{
+	TPolicyinfo pro[256];
+	TPolicyinfo web[256];
+	TPolicyinfo filetype[256];
+//	TPolicyinfo mime[256];
+}TPolicy;
+
+extern TPolicy g_policy[MAX_POLICY];
+
+#endif

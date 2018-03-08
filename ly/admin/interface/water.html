@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+ <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <title>实时流量分析</title> 
+	<link href="../common/main.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="../common/common.js"></script>
+    <!--[if IE]><script language="javascript" type="text/javascript" src="js1/excanvas.min.js"></script><![endif]--> 
+	<script src="js/jquery.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="js1/jquery.flot.js"></script> 
+	<script language="javascript" type="text/javascript" src="js1/jquery.flot.stack.js"></script>
+	<script type="text/javascript" src="table_set.js"></script>
+<style>
+   
+</style>
+<script type="text/javascript">
+
+jQuery(document).ready(function(){
+$(function () {
+    var options = 
+		{
+        lines: { show: true },
+        points: { show: true },
+        xaxis: { tickDecimals: 0, tickSize: 1 }
+		};
+	
+    var alreadyFetched = {};
+    $.plot($("#placeholder"), [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0]], options);
+    var x = 1;
+	var hash_up = [];
+	var hash_down = [];
+	var hash_total=[];
+	
+	function fetchData_total_data(dataup,datadown,datatotal)
+    {	
+	    //hash_up.shift();//删除第一个元素
+		//hash_up.push(dataup.)
+		for(i = 1;i<11;i++)
+		{
+			$("#data_show_total tr:eq("+i+") td:eq(1)").html(dataup[i-1][1]);//上行流量		
+			$("#data_show_total tr:eq("+i+") td:eq(2)").html(datadown[i-1][1]);//下行流量		
+			$("#data_show_total tr:eq("+i+") td:eq(3)").html(datatotal[i-1][1]);//总流量		
+			$("#data_show_total tr:eq("+i+") td:eq(4)").html("<a href='ip_flow_detail.php'>详细</a>");
+		}
+	}
+	var	dataup=[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0]];//上行流量
+	var	datadown=[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0]];//下行流量
+	var	datatotal = [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0]];//总流量
+    var flag = 0; 	
+    function fetchData() {
+
+        function onDataReceived(series) {
+		for(var i=1;i<10;i++)
+		{
+		   dataup[i-1][1] = dataup[i][1];
+		   datadown[i-1][1] = datadown[i][1];
+		   datatotal[i-1][1] = datatotal[i][1];
+		}
+		dataup[9][1] = series[0].up;
+		datadown[9][1] = series[0].down;
+		datatotal[9][1] =parseFloat(series[0].up)+parseFloat(series[0].down)
+        var data_all = [{label: "总流量", data:datatotal},{label:"上行流量",data:dataup},{label:"下行流量",data:datadown}];
+        $.plot($("#placeholder"), data_all, options);
+		fetchData_total_data(dataup,datadown,datatotal);
+		
+        }
+        
+        $.ajax({
+                url: "get_tc_n.php",
+				cache:false,
+                method: 'POST',
+                dataType: 'json',
+                success: onDataReceived
+        });
+        setTimeout(fetchData, 3000);
+
+    }//fetchData end
+    setTimeout(fetchData, 1000);
+	
+});
+});
+</script>
+</head> 
+<body> 
+<div class="bodyTitle">
+ <div class="bodyTitleLeft"></div>
+ <div class="bodyTitleText">流量实时展示</div>
+</div>
+ <p> 
+      <input class="dataUpdate" type="button" value="总流量" /> 
+</p> 
+    <div id="placeholder" class="leftfloat"></div>
+    </div>       	
+	<div id = "total_data" class = "right" >
+	<table class="warp_table" id="data_show_total">
+	<caption></caption>
+	<caption align="right"><font color="red">3秒中统计值--网络上行,下行,总量表</font></caption>
+	<thead><tr><th>排名号</th><th>上行流量</th><th>下行流量</th><th>总流量</th><th>详细</th></tr></thead>
+	<tr><td align="center">1</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">2</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">3</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">4</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">5</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">6</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">7</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">8</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">9</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">10</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">&nbsp;</td></tr>
+	<tr><td align="center">统计</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="right">&nbsp;</td><td align="center">--</td></tr>
+	</table>
+	</div>
+<script id="source" language="javascript" type="text/javascript"> 
+$(function () {
+
+    $("input.dataUpdate").click(function () {
+  
+    });
+});
+</script> 
+ <script language="javascript">
+senfe("data_show_total","#f8fbfc","#e5f1f4","#ecfbd4","#bce774");
+</script>
+</body> 
+</html> 

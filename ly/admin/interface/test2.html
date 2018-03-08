@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <title>简单流控页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<STYLE type=text/css>
+	.btn 
+	{
+		BORDER-LEFT-COLOR: #3366cc; BACKGROUND: #3366cc; BORDER-BOTTOM-COLOR: #3366cc; COLOR: #fff; BORDER-TOP-COLOR: #3366cc; MARGIN-RIGHT: 1em; BORDER-RIGHT-COLOR: #3366cc
+	}
+	.btn 
+	{
+		BORDER-TOP-WIDTH: 1px; PADDING-RIGHT: 1em; PADDING-LEFT: 1em; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 9pt; BORDER-BOTTOM-WIDTH: 1px; PADDING-BOTTOM: 0px; OVERFLOW: visible; CURSOR: pointer; LINE-HEIGHT: 130%; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 1px
+	}
+	
+<!--	
+	.post-tag
+	{margin-right:6px;}
+	.post-tag
+	{
+		color:#3E6D8E;background-color:#E0EAF1;border-bottom:1px solid #3E6D8E;border-right:1px solid #7F9FB6;margin:2px 2px 2px 0;padding:3px 4px 3px 4px;text-decoration:none;font-size:90%;line-height:2.2;white-space:nowrap;
+	}
+	.post-tag:hover
+	{
+		background-color:#3E6D8E;color:#E0EAF1;border-bottom:1px solid #37607D;border-right:1px solid #37607D;text-decoration:none;
+	}
+	-->
+	</STYLE>
+	<script language="javascript" src="jquery-1.3.2.js"></script>
+    <script language="javascript" src="json_1.js"></script>
+  
+    <script language="javascript">
+	    var g_json_object;
+		var g_json;
+        function GetUserNameValues(strValue)
+        {
+            $.get("ajax.php", {value:strValue}, function(text){
+			//write_t.innerText=text;
+              document.getElementById("write_t").innerText=text;
+            });
+        }
+		function log(mes)
+		{
+		   write_t.innerText = mes;
+		}
+		function getdata(strValue)
+		{
+			$.getJSON("data.php", function(g_json_object){
+			//g_json_object = json;
+			log("ok");
+			g_json_object.pop();
+			//alert("姓名：" + json[0].name);
+             /*for(var i = 0; i < json.length; i++)
+             {
+                 alert("姓名：" + json[i].name);
+                 alert("年龄：" + json[i].age);
+             }*/
+			 
+			 g_json = $.toJSON(g_json_object); 
+			 write_t.innerText=g_json;
+
+			});
+
+		}
+		
+		function Post_Data(msg)
+		{
+		    
+			var post_json_string = $.toJSON(g_json_object);
+			write_t.innerText = post_json_string;
+			$.ajax({
+			type: "POST",
+			url: "simple_tc_p.php",
+			data: post_json_string,
+			success: function(msg)
+			{
+				alert( "数据已经成功保存: " + msg );
+			}
+			})
+		}
+
+    </script>
+     <!--
+	<script type="text/javascript">
+	$(document).ready( function () {
+	$('#btn').click ( function () {
+		$.ajax({
+		url: 'http://localhost/1.php',
+		type: 'POST',
+		data:'name='+$('#name').val(),
+		dataType: 'html',
+		timeout: 1000,
+		error: function(){
+		alert('Error loading XML document');
+		},
+		success: function(html){
+			$('#text').html(html);
+		}
+		});
+	});
+	})
+	
+	
+	
+//-->
+	</script>
+  </head>
+  <body>
+      <div id="write_t" name="write_t"></div>
+      <form name="form" method="POST" action="action.php">
+		  <input type="edit" id="tc_start" name="tc_start" value="起始值"/>--<input type="edit" id="tc_end" name="tc_end" value="结束值"/>
+		  <input class=btn tabIndex=19 type=submit alt=确定登录  value="取数据" onclick="return getdata(this.value)">
+		  <br>	
+		  <input class=btn tabIndex=19 type=submit alt=确定登录  value="登录">
+		  <input class=btn tabIndex=20 type=button alt=确定登录1 value="登录1">		  
+          <table>
+              <tbody>
+                  <tr>
+                      <td><input type="text" id="txtName" name="txtName" value="" onblur="return GetUserNameValues(this.value);"/></td>
+					  <td><input type="text" id="txtName1" name="txtName1" value="" onblur="return getdata(this.value);"/></td>
+					  <input class=btn tabIndex=20 type=button alt="保存完毕" value="保存" onclick="return Post_Data()">	
+                  </tr>
+              </tbody>
+          </table>
+      </form>
+	  
+	  
+	  
+  </body>
+</html>

@@ -1,0 +1,43 @@
+#ifndef _SERV_H
+#define _SERV_H
+
+#include "global.h"
+#include "account.h"
+
+#define EVT_CLI_REGISTER 			0
+
+#define EVT_NETSEG_MODIFY 		1
+#define EVT_IP_MODIFY		 		2
+
+#define EVT_POL_MODIFY 			3
+
+#define EVT_GBL_PROLOG			5
+#define EVT_GBL_TIME 				6
+#define EVT_GBL_MODE				7
+
+#define EVT_INS_PRO 				8
+#define EVT_INS_IP 				9
+
+#define EVT_IPMAC					10
+
+
+#define EVT_ADMIN_LOGIN 			11
+
+#define EVT_ACCOUNT_LOGIN 		12
+#define EVT_ACCOUNT_MODIFY		13
+#define EVT_ACCOUNT_NOEXIST 		14
+#define EVT_ACCOUNT_PASSWD 		15
+#define EVT_ACCOUNT_LOGINOK 		16
+#define EVT_ACCOUNT_IP 			17
+
+#define EVT_CARD_MODIFY 			18
+#define EVT_PRO_FEATHER			19
+#define EVT_INS_SUM				20
+
+extern int g_servsockfd;
+extern struct sockaddr_un g_cliaddr;
+extern u32 g_clilen;
+
+void serv_init();
+
+#endif

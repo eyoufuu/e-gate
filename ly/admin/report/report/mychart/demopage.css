@@ -1,0 +1,42 @@
+body { font-size: 75%; font-family: Verdana, sans-serif; }
+/*demo styles*/
+table { width: 750px; height: 200px; border-collapse: collapse; margin-left: 20px; font-size: 1em;}
+table.accessHide { position: absolute; left: -1px; }
+td, th { 
+   text-align: center; 
+   border: 1px solid #ddd; 
+   padding:2px 5px; 
+    font-size: 1.1em; padding: 2px; width: 13%;
+   }
+th { background-color:#f4f4f4; }  
+td.hover { color: orange; }
+td.input { padding: 0; }
+td input, td input:focus { border: 1px solid orange; outline: none; padding: 2px; margin: 1px; width: 20px; }
+caption {margin: 0 0 .5em; font-size: 1.5em; font-weight: bold; }
+.visualize { margin: 60px 0 0 30px; }
+
+.editableNote { background: #FEFBE2; border: 1px solid #8CC264; padding: 10px; margin: 1.5em 0; font-size: 1.2em; }
+
+/*sample alternate styling for info block on Pie Chart */
+.visualize-pie .visualize-info { top: 10px; border: 0; right: auto; left: 10px; padding: 0; background: none; }
+.visualize-pie ul.visualize-title { font-weight: bold; border: 0; }
+.visualize-pie ul.visualize-key li { float: none; }
+
+.common { padding: 0; }
+.common .common_title { height:25px; background-image:url(../images/bt02.gif); color:#FFFFFF; }
+.common .common_title a:link { color:#FFFFFF; }
+.common .common_title a:visited { color:#FFFFFF; }
+.common .common_title .common_title_left { width:26px; height:25px; background-image:url(../images/bt01.gif); float:left; }
+.common .common_title .common_title_word { width:320px;height:25px; float:left; padding-top:3px; font-weight:bold;font-size:1.2em }
+.common .common_title .common_title_right { width:7px; height:25px; background-image:url(../images/bt03.gif); float:right; }
+
+.body_title1 {display: block; color: #333; margin-bottom: 3px;  font-size: 1.1em; }
+.body_title2 {font-weight:bold; font-size 15px; text-align: center;}
+
+/*option configurator thingy*/
+.chartConfiguratorThingy { border: 1px solid #ddd; padding: 10px; overflow: auto; display: none; }
+.chartConfiguratorThingy h2 { font-size: 1.4em; color: #666; }
+fieldset { margin: 5px 5px 5px 0; width: 45%; float: left; }
+legend { font-size: 1.2em; }
+.dependencies { padding: 15px; }
+label { width: 90px; display: inline-block; }

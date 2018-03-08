@@ -1,0 +1,191 @@
+<?php
+
+/*
+
+   * Modified: 2010-3-2
+
+   * By: qianbo (qianbo@chd.edu.cn)
+
+   *
+
+   * Created: 2010-3-1
+
+   * By: qianbo (qianbo@chd.edu.cn)
+
+   *
+
+*/ 
+
+   require_once('_inc.php');
+
+?>
+
+
+
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>test page</title>	
+		<link type="text/css" rel="stylesheet" href="./chart/visualize.jQuery.css"/>
+		<link type="text/css" rel="stylesheet" href="./chart/demopage.css"/>
+		<script type="text/javascript" src="./chart/jquery.min.js"></script>
+		<script type="text/javascript" src="./chart/time.js"></script>
+		
+		<!--[if IE]><script type="text/javascript" src="./chart/excanvas.compiled.js"></script><![endif]-->
+		<script type="text/javascript" src="./chart/visualize.jQuery.js"></script>
+		<script type="text/javascript">
+			function get_graph(){
+				//make some charts
+				$('table').visualize({type: 'pie', pieMargin: 10, title: ''});
+				$('table').visualize({type: 'line'});
+				$('table').visualize({type: 'area'});
+				$('table').visualize();
+			};
+
+                         function get_line(){
+                                  $('table').visualize({type: 'line'});
+
+
+                         };
+                         function get_pie() {
+
+                             $('table').visualize({type: 'pie', pieMargin: 10, title: ''});         
+                         }         
+                         function get_pie1() {
+
+                             $('table').visualize({type: 'pie', pieMargin: 10, title: ''});         
+                         }         
+		</script>
+                 <link href="../common/main.css" rel="stylesheet" type="text/css"/><script type="text/javascript" src="../common/common.js"></script>
+
+	</head>
+	<body>	
+ 
+  <?php
+    session_start();
+   $date1 = $_SESSION["date1"];
+   list($year,$month,$day)=split('[-]',$date1);
+   $datet1 = $year.$month.$day; 
+   $date2 = $_SESSION["date2"];
+   list($year,$month,$day)=split('[-]',$date2);
+   $datet2 = $year.$month.$day; 
+   $ips   = $_SESSION["ips"] ;
+   $ipsi = ip2long($ips);
+   $ipe   = $_SESSION["ipe"];
+   $ipei = ip2long($ipe);
+   $symbol= $_SESSION["symbol"]; 
+   $username =  $_SESSION["username"];
+   $account =  $_SESSION["account"] ;
+ ?>
+   <br>
+	
+        <div class="common" style="width: 800px"> 
+        <div class="common_title"> 
+        <div class="common_title_left"></div> 
+        <div class="common_title_word">上下行流量</div> 
+        <div class="common_title_right"></div> 
+        </div> 
+	</div>		
+	<br>
+	<br>
+<!--以下表格要用php生成就可以了-->
+
+<?php
+ if ($symbol == "2")
+  {
+     $arr = "select id from useraccount where name= '".$username."'";
+     $arr = $db->fetchRow($arr);
+     $accountid= $arr["id"];
+   }
+ elseif ($symbol =="3")
+   {
+       $arr = "select id from useraccount where account= '".$account."'";
+       $arr = $db->fetchRow($arr);
+       $accountid= $arr["id"];
+   };
+
+
+
+
+if( $symbol == "1")
+   {
+     $arr = "call updownflow($datet1,$datet1,0,0,0,0)";
+   }
+
+elseif ($symbol == "2" || $symbol == "3")
+    {
+      $arr = "call updownflow($datet1,$datet1,1,$accountid,0,0)";
+    }
+elseif ($symbol == "4")
+    { 
+      $arr = "call updownfow($datet1,$datet1,2,0,$ipsi,$ipei)";
+     };
+
+$arr = $db->fetchRows($arr);
+
+
+?> 
+<table>
+	<caption></caption>
+	<thead>
+            
+		<tr>
+			<td></td>
+              <?php  foreach($arr as $value) {        ?>   
+			<th><?php echo $value['logtime'];  ?></th>
+		  <?php  }    ?>			
+		</tr>
+	</thead>
+	<tbody>
+          
+		<tr>
+                       <th>上行流量</th>
+		<?php  foreach($arr as $value) {        ?>   	
+                     <td><?php echo $value['upflow'];  ?></td>
+			
+		     <?php  }    ?>	
+                  
+                 </tr>
+                 <tr>
+                       <th>下行流量</th>
+		<?php  foreach($arr as $value) {        ?>   	
+                     <td> <?php echo $value['downflow'];  ?></td>
+			
+		     <?php  }  unset($arr); ?>	
+                  
+                 </tr>
+               
+	  
+	</tbody>
+</table>
+
+<?php
+
+$db->close();
+$db->_open();
+
+
+?>
+
+
+
+
+
+
+
+
+<br>
+<br>
+ 
+
+<div align="left">
+		<script "text/javascript">
+			get_line();
+		</script>
+</div>
+
+<br>
+<br>
+	
+</body>
+</html>

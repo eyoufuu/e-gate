@@ -1,0 +1,219 @@
+/*File: ctl.c
+    Copyright 2009 10 LINZ CO.,LTD
+    Author(s): fuyou (a45101821@gmail.com)
+ */
+#include "ctl.h"
+#include "account.h"
+#include <linux/ip.h>
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+
+#define SHMID_PATH "./sharememid"
+
+u8 g_sendpkthead[2048];
+
+#define HTTP_HOST 		"Host"
+#define HTTP_GET		"GET"
+
+
+inline u32 ctl_getsystime(struct tm** ptm, time_t* curtime)
+{
+	*curtime = time(NULL);
+	*ptm = (struct tm*)localtime(curtime); 
+	return (u32)(*curtime);
+}
+void ctl_readsharedmemid(int* shm_id)
+{
+	int fd;
+	fd = open(SHMID_PATH,O_RDONLY,S_IRUSR|S_IWUSR);
+	if(fd == -1)
+	{	
+		printf("shared time open error\n");
+                exit(1);
+	}
+	if(-1==read(fd,(void*)shm_id,sizeof(int)))
+	{
+		printf("read sharedmemid error\n");
+	}    
+	close(fd);
+}
+ /*inline void ctl_getpktinfo(u32 phyindev,u32* dir,u32* innerip, u32* upflow,u32* downflow,u32 size)
+{
+	struct iphdr* iphdr = (struct iphdr*)user_getiphdr();
+	if(phyindev == g_lanindex)
+	{
+		*dir = DIR_CS;
+		*innerip = iphdr->saddr;
+		*upflow += size;
+	}
+	else if(phyindev == g_wanindex)
+	{
+		*dir = DIR_SC;
+		*innerip = iphdr->daddr;
+		*downflow += size;
+	}
+	else
+	{
+		*dir = DIR_UNKNOW;
+	}
+ }*/
+inline u32 ctl_getpktdir(u32 phyindev)
+{
+	if(phyindev == g_lanindex)
+	{
+		return DIR_CS;
+	}
+	else if(phyindev == g_wanindex)
+	{
+		return DIR_SC;
+	}
+	else
+	{
+		return DIR_UNKNOW;
+	}
+}
+
+inline u32 ctl_getinnerip(u32 sip,u32 dip)
+{
+	if(g_pkt.dir == DIR_CS)
+	{
+		return sip;	
+	}
+	else
+	{
+		return dip;
+	}
+}
+inline void ctl_generatetablename(u8* name,u8* post)
+{
+#define Get_Year_From_S(x)  (x.tm_year+1900)
+#define Get_Mon_From_S(x)   (x.tm_mon+1)
+#define Get_Day_From_S(x)    (x.tm_mday)
+
+	u32 time=Get_Year_From_S(g_ptm->curdate)*10000+Get_Mon_From_S(g_ptm->curdate)*100+Get_Day_From_S(g_ptm->curdate);
+
+	sprintf(name,"%u%s",time,post);
+}
+#if 0
+inline int ctl_search(void *source, void *target,u32 soc_length, u32 tar_length)
+{
+	void *addr;
+	u8 *search_address;
+	search_address = (u8 *)source;
+	while((addr = memchr(search_address, *((char*)target), soc_length))!=NULL)
+	{
+		if(memcmp(addr, target, tar_length)==0)
+		{
+			return (char*)addr-(char*)source;
+		}		
+		soc_length = soc_length - (long)((u8*)addr - (u8*)search_address)-1;
+		search_address=(u8 *)((u8 *)addr+1);		
+	}
+	return -1;	
+}
+#endif
+inline void ctl_initpktcontent(u8* buf,u32 sip,u32 dip,u16 sport,u16 dport,u32 seq,u32 ack,u32 accid)
+{
+	memcpy(buf+14,&sip,4);
+	memcpy(buf+18,&dip,4);
+	memcpy(buf+22,&sport,2);
+	memcpy(buf+24,&dport,2);
+	memcpy(buf+26,&seq,4);
+	memcpy(buf+30,&ack,4);
+	memcpy(buf+34,&accid,4);
+}
+inline void ctl_setpkthead(u8* buf,u32 len,u16 cmd)
+{
+	SET_PKT_LEN(buf,len);
+	SET_PKT_VER_CMD(buf,cmd);
+}
+
+inline void ctl_initpkthead(u8* buf)
+{
+//	SET_PKT_LEN(g_sendpkthead,len);
+	SET_PKT_VER_MAJ(buf,1);
+	SET_PKT_VER_MIN(buf,0);
+//	SET_PKT_VER_CMD(g_sendpkthead,cmd);
+	SET_PKT_VON_ID(buf,1);
+	SET_PKT_PRO_ID(buf,0);
+	SET_PKT_RES(buf,0);
+}
+#if 0
+inline void ctl_httpget(u8* buf,u16 buflen,u8** get, u16* getlen)
+{
+	u32 i =0;
+	int ret = 0;
+	u32 pointer;
+//get hostinfo
+	ret = ctl_search((void*)(buf),(void*)HTTP_GET,3,3);
+	if(unlikely(ret<0))
+	{
+		return;
+	}
+	i = i+ret;
+	i = i+3;//  i+3(get)
+
+	while(*(buf+i) == ' '/*&&i<*buflen*/)
+	{
+		i++;
+		if(unlikely(i>=buflen))
+		{
+			return;
+		}
+	}
+
+	pointer = i;
+	*get =(u8*)( buf + pointer);
+	ret = ctl_search((void*)(buf+i),(void*)" HTTP/",buflen-i,6);//" HTTP/" 6BYTE
+	if(unlikely(ret<0))
+	{
+		return;
+	}
+	i = i+ret;
+	*getlen = i-pointer;	
+}
+inline void ctl_httphost(u8* buf,u16 buflen,u8** host,u16* hostlen)
+{
+	u32 i =0;
+	int ret = 0;
+	u32 pointer;
+	u32 len = buflen; 
+//get hostinfo
+	ret = ctl_search((void*)(buf),(void*)HTTP_HOST,len,4);
+	if(unlikely(ret<0))
+	{
+		return;
+	}
+	i = i+ret;
+	i = i+5;//  i+4(host)	i++;(':')
+
+	while(*(buf+i) == ' '/*&&i<*buflen*/)
+	{
+		i++;
+		if(unlikely(i>=len))
+		{
+			return;
+		}
+	}
+/*	if(i>=len)
+	{
+		return;
+	}*/
+	pointer = i;
+	*host =(u8*)( buf + pointer);
+	ret = ctl_search((void*)(buf+i),(void*)"\r\n",len-i,2);
+	if(unlikely(ret<0))
+	{
+		return;
+	}
+	i = i+ret;
+	*hostlen = i-pointer;
+
+//	char urlaa[1024];
+//	memcpy(urlaa,buf+pointer,*hostlen);
+//	urlaa[*hostlen] = '\0';
+//	printf("urlaa=%s\n",urlaa);
+}
+#endif

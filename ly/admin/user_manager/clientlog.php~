@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "  http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<?php
+   require_once('_inc.php');
+   if(isset($_POST['radio']))
+   { 
+  
+    switch($_POST['radio']) 
+    {
+   	case "1":
+    		$SQL="update globalpara set systemmode=0";
+    		break;
+		case "2":
+			$SQL="update globalpara set systemmode=1";
+		   break;
+    }
+    
+     $result = $db->exec($SQL,"客户端登陆方式");
+  } 
+ 
+  $sql_log="select systemmode from globalpara;";
+  $arr_mode=$db->fetchOne($sql_log);
+  $loginmode=$arr_mode['systemmode'];
+  
+  
+   
+   
+   
+?>
+
+
+<html>
+	<head>
+	<title>报表条件</title>    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="../common/main.css" rel="stylesheet" type="text/css"/>
+	<link href="./css/tab.css" rel="stylesheet" type="text/css"/>
+	
+	
+   
+ 
+</head>
+<style>.a3{width:30;border:0;text-align:center}</style>  
+<body> 
+   <h1>客户端登陆方式</h1>
+	<br>
+	<form name=queryinput action="clientlog.php" method="post" >
+		<div>
+		<table border="0" cellpadding="2" cellspacing="0">
+        <tr><td><input type="radio" name="radio" id="mode"  value="1" <?php if($loginmode=='0') echo 'checked'; ?> > IP方式 </td></tr>
+        <tr><td><input type="radio" name="radio" id="userid"  value="2" <?php if($loginmode=='1') echo 'checked'; ?> >帐号方式</td></tr>
+		</table>
+     </div>
+		<INPUT type="submit" name="提交" value="提交" id="submit" size="20" >	
+	</form>
+ 
+	
+
+</body>
+</html>

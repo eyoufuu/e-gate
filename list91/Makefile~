@@ -1,0 +1,37 @@
+SRC  := emp.c log.c policy.c globle.c ctl.c cli.c serv.c user.c if.c get.c bdbmem.c account.c readsql.c
+OBJS := emp.o log.o policy.o globle.o ctl.o cli.o serv.o user.o if.o get.o bdbmem.o account.o readsql.o
+LIBS := -lpthread -lnetfilter_queue -lmysqlclient
+PARA :=  -O2 -c -I/usr/src/linux/include -I/usr/include/mysql
+
+user:$(OBJS)
+	gcc -o $@ $^ $(LIBS)
+user.o:user.c
+	gcc $(PARA) -o $@ $< $(LIBS)
+emp.o:emp.c
+	gcc $(PARA) -o $@ $<
+log.o:log.c
+	gcc $(PARA) -o $@ $<
+policy.o:policy.c
+	gcc $(PARA) -o $@ $<
+globle.o:globle.c
+	gcc $(PARA) -o $@ $<
+if.o:if.c
+	gcc $(PARA) -o $@ $< -lnfnetlink
+get.o:get.c
+	gcc $(PARA) -o $@ $<
+ctl.o:ctl.c
+	gcc $(PARA) -o $@ $<
+cli.o:cli.c
+	gcc $(PARA) -o $@ $<
+serv.o:serv.c
+	gcc $(PARA) -o $@ $<
+#main.o:main.c
+#	gcc $(PARA) -o $@ $<
+bdbmem.o:bdbmem.c
+	gcc $(PARA) -o $@ $<
+account.o:account.c
+	gcc $(PARA) -o $@ $<
+readsql.o:readsql.c
+	gcc $(PARA) -o $@ $<
+clean:
+	rm $(OBJS) main

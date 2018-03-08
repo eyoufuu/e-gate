@@ -1,0 +1,117 @@
+#ifndef _POLICY_H
+#define _POLICY_H
+
+#include "global.h"
+//#include <regex.h>
+//#include <sys/types.h>
+
+#define TIMEGATE_CLOSE 0
+#define TIMEGATE_OPEN 1 
+
+typedef struct _TTimescope{
+	u16 open; //open or close
+	u16 week;
+	u16 times1;
+	u16 timee1;
+	u16 times2;
+	u16 timee2;
+}TTimescope;
+
+typedef struct _TPolicyinfo{
+	u32 id;
+	u32 pass;
+	u32 log;
+    u32 remind;
+}TPolicyinfo;
+
+typedef struct _TKeyword{
+        u8 gb[64];
+        u8 utf[64];
+	u32 id;
+	u32 pass;
+        u32 log;
+//	regex_t reggb;
+//	regex_t regutf;        
+}TKeyword;
+
+typedef struct _TPolicyword{
+        TKeyword word[50];
+        u32 num;
+        u8 keywordfilter;
+}TPolicyword;
+
+typedef struct _TPolicy{
+	TPolicyinfo pro[256];
+    	TPolicyinfo web[256];    
+	TPolicyinfo filetype[256];	
+        TPolicyword keyword;		
+        TTimescope timescope;
+
+        u32 proctl;
+        u32 webfilter;
+        u32 filetypefilter;
+        u32 postaudit;        
+    	u32 smtpaudit;
+	u32 pop3audit;	
+    u32 webcheck_flag;//decide by webfilter,filetypefilter,keyword,bwweb;
+                      //              1     1                1       1
+        
+}TPolicy;
+
+extern TPolicy g_policy[MAX_POLICY];
+inline u32 pol_init();
+inline void pol_reset(u32 polid);
+//time
+inline void pol_settimescope(u32 polid,u16 open,u16 week,u16 times1,u16 timee1,u16 times2,u16 timee2);
+inline u32 pol_istimeopen(u32 polid);
+inline u32 pol_isintimescope(u32 polid);
+//proctl
+inline u32 pol_isproctl(u32 polid);
+inline void pol_setproctl(u32 polid,u32 val);
+inline u32 pol_getpropass(u32 polid,u32 proid);
+inline u32 pol_isprolog(u32 polid,u32 proid);
+inline void pol_setpropasslog(u32 polid,u32 proid,u32 pass,u32 log);
+//webfilter
+inline u32 pol_iswebfilter(u32 polid);
+inline void pol_setwebfilter(u32 polid,u32 val);
+inline u32 pol_getwebpass(u32 polid,u32 webid);
+inline u32 pol_isweblog(u32 polid,u32 webid);
+inline u32 pol_iswebremind(u32 polid,u32 webid);
+inline void pol_setwebpasslog(u32 polid,u32 webid,u32 pass,u32 log,u32 remind);
+//filetype
+inline u32 pol_isfiletypefilter(u32 polid);
+inline void pol_setfiletypefilter(u32 polid,u32 val);
+inline u32 pol_getfiletypepass(u32 polid,u32 filetypeid);
+inline u32 pol_isfiletypelog(u32 polid,u32 filetypeid);
+inline void pol_setfiletypepasslog(u32 polid,u32 filetypeid,u32 pass,u32 log);
+//policy keyword
+inline u32 pol_iskeywordfilter(u32 polid);
+inline void pol_setkeywordfilter(u32 polid,u32 val);
+inline u32 pol_getkeywordnum(u32 polid);
+inline u32 pol_setkeywordnum(u32 polid,u32 num);
+inline u32 pol_getkeywordpass(u32 polid,u32 pos);
+inline u32 pol_getkeywordid(u32 polid,u32 pos);
+inline u32 pol_iskeywordlog(u32 polid,u32 pos);
+inline void pol_setkeywordpasslog(u32 polid,u32 pos,u32 pass,u32 log);
+inline u32 pol_addkeyword(u32 polid,u32 pos,u8* pgb,u8* putf,u32 id);
+inline void pol_delkeyword(u32 polid);
+//webcheck_flag
+inline void pol_setwebcheckflag(u32 polid);
+inline u32 pol_getwebcheckflag(u32 polid);
+#if 0
+inline regex_t* pol_getkeywordreggb(u32 polid,u32 id);
+inline regex_t* pol_getkeywordregutf(u32 polid,u32 id);
+#endif
+//postaudit
+inline u32 pol_ispostaudit(u32 polid);
+inline void pol_setpostaudit(u32 polid,u32 val);
+//smtpaudit
+inline u32 pol_issmtpaudit(u32 polid);
+inline void pol_setsmtpaudit(u32 polid,u32 val);
+//pop3 audit
+inline u32 pol_ispop3audit(u32 polid);
+inline void pol_setpop3audit(u32 polid,u32 val);
+
+void pol_generater();
+void policy_echo();
+#endif

@@ -1,0 +1,57 @@
+SRC  := emp.c log2.c policy.c global.c ctl.c cli.c serv.c user.c if.c filetype.c bdbmem.c account.c readsql.c pktsend.c pop3.c post.c smtp.c keyword.c webcat.c bdb.c bwhost.c imp2.c core_engine.c module_config.c
+OBJS := emp.o log2.o policy.o global.o ctl.o cli.o serv.o user.o if.o filetype.o bdbmem.o account.o readsql.o pktsend.o pop3.o post.o smtp.o keyword.o webcat.o bdb.o bwhost.o imp2.o core_engine.o module_config.o
+LIBS := -lpthread -L./lib/ -lnetfilter_queue  -L./lib/ -lmysqlclient -lm -ldb -L./sharedmem/ -lsharedmem  -L./httpsearch/ -lhttpsearch -L./sndpkt/ -lsndpkt
+PARA :=  -g -c -I/usr/src/linux/include -I./mysql/ -I./
+
+user:$(OBJS)
+	gcc -o $@ $^ $(LIBS)
+user.o:user.c
+	gcc $(PARA) -o $@ $< $(LIBS)
+emp.o:emp.c
+	gcc $(PARA) -o $@ $<
+log2.o:log2.c
+	gcc $(PARA) -o $@ $<
+policy.o:policy.c
+	gcc $(PARA) -o $@ $<
+global.o:global.c
+	gcc $(PARA) -o $@ $<
+if.o:if.c
+	gcc $(PARA) -o $@ $< -lnfnetlink
+filetype.o:filetype.c
+	gcc $(PARA) -o $@ $<
+ctl.o:ctl.c
+	gcc $(PARA) -o $@ $<
+cli.o:cli.c
+	gcc $(PARA) -o $@ $<
+serv.o:serv.c
+	gcc $(PARA) -o $@ $<
+bdbmem.o:bdbmem.c
+	gcc $(PARA) -o $@ $<
+account.o:account.c
+	gcc $(PARA) -o $@ $<
+readsql.o:readsql.c
+	gcc $(PARA) -o $@ $<
+pktsend.o:pktsend.c
+	gcc $(PARA) -o $@ $<
+pop3.o:pop3.c
+	gcc $(PARA) -o $@ $<
+smtp.o:smtp.c
+	gcc $(PARA) -o $@ $<
+post.o:post.c
+	gcc $(PARA) -o $@ $<
+keyword.o:keyword.c
+	gcc $(PARA) -o $@ $<	
+webcat.o:webcat.c
+	gcc $(PARA) -o $@ $<
+bdb.o:bdb.c
+	gcc $(PARA) -o $@ $<
+bwhost.o:bwhost.c
+	gcc $(PARA) -o $@ $<
+imp2.o:imp2.c
+	gcc $(PARA) -o $@ $<
+core_engine.o:core_engine.c
+	gcc $(PARA) -o $@ $<
+module_config.o:module_config.c
+	gcc $(PARA) -o $@ $<
+clean:
+	rm $(OBJS) user

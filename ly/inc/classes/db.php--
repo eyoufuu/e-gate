@@ -1,0 +1,147 @@
+<?php
+
+  /*
+   * Modified on: 2010-3-2
+   * By: qianbo (qianbo@chd.edu.cn)
+   *
+   * Created on: 2010-3-1
+   * By: qianbo (qianbo@chd.edu.cn)
+   *
+   */
+   
+   class Db
+   {
+       var $_version = '1.0';
+       var $_type = 'mysql';
+       
+       var $_host = '';     //主机
+       var $_user = '';     //用户名
+       var $_pwd = '';     //密码
+       var $_db = '';     //数据库
+       
+       var $_conn = null;       
+       
+       /**
+        * 构造函数
+        */
+       function Db($arrParams = array('host'=>'localhost', 'user'=>'root', 'pwd'=>'', 'db'=>'test'))
+       {
+           $this->_host = $arrParams['host'];
+           $this->_user = $arrParams['user'];
+           $this->_pwd = $arrParams['pwd'];
+           $this->_db = $arrParams['db'];
+           
+           $this->_open($this->_db);
+       }
+       
+       /**
+        * 执行查询
+        */
+       function query($sql)
+       {           
+           $rs = mysql_db_query($this->_db, $sql) OR $this->_quit("Query error: <!-- $sql -->");
+           
+           return $rs;
+       }
+       
+       /**
+        * 返回某一单独字段值的查询。例如SELECT COUNT(id) FROM ...
+        */
+       function fetchOne($sql)
+       {
+           $rs = $this->query($sql);
+           $arr = mysql_fetch_array($rs, MYSQL_NUM);
+           mysql_free_result($rs);     
+           
+           return $arr[0];
+       }
+       
+       /**
+        * 只返回一行的查询
+        */
+       function fetchRow($sql)
+       {
+           $rs = $this->query($sql);
+           $arr = mysql_fetch_array($rs, MYSQL_ASSOC);
+           mysql_free_result($rs);
+           
+           return $arr;
+       }
+       
+       /**
+        * 返回多行的查询
+        */
+       function fetchRows($sql)
+       {
+           $result = $this->query($sql);
+           $arr = array();
+           while ($row = mysql_fetch_array($result, MYSQL_ASSOC))
+           {
+               $arr[] = $row;
+           }
+           mysql_free_result($result);
+           
+           return $arr;
+       }
+       
+       /**
+        * 分页查询
+        */
+       function fetchPage($sql, $page = '1', $pageSize = '20')
+       {
+           $start = ($page - 1) * $pageSize;
+           $arr = $this->fetchRows($sql . " LIMIT $start, $pageSize");
+           
+           return $arr;
+       }
+       
+       /**
+        * 关闭数据库
+        */
+       function close()
+       {
+           mysql_close();
+       } 
+       
+       /**
+        * 打开数据库
+        */
+       function _open($database = 'test')
+       {
+           $this->_conn = mysql_connect($this->_host, $this->_user, $this->_pwd) || $this->_quit('Connect error: ');
+           
+           if ($this->_getDbVersion() >= 4.1)
+           {
+               mysql_query('SET NAMES utf8');
+           }
+           
+           return mysql_select_db($database);
+       }
+       
+       /**
+        * 获取数据库版本
+        */
+       function _getDbVersion()
+       {
+         $rs = mysql_query("SELECT VERSION();");
+         $row = mysql_fetch_array($rs, MYSQL_NUM);
+         
+         $ver = $row[0];
+         $vers = explode(".", trim($ver));
+         $ver = $vers[0] . ".".$vers[1];
+         
+         return $ver;
+       }
+       
+       /**
+        * 退出
+        */
+       function _quit($msg = 'Error: ')
+       {
+           exit($msg . mysql_error());
+           
+           return false;
+       }
+   }
+   
+?>

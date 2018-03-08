@@ -1,0 +1,188 @@
+#include "emp.h"
+
+#define INTIME1(time) ((time<=g_timescope.timee1) && (time>=g_timescope.times1))
+#define INTIME2(time) ((time<=g_timescope.timee2) && (time>=g_timescope.times2))
+
+TTimescope g_timescope = 
+{
+	.open = TIMEGATE_CLOSE,
+	.week = 127,
+	.times1 = 0,
+	.timee1 = 2400,
+	.times2 = 0,
+	.timee2 = 2400
+};
+struct hlist_head g_ipemplist[MAX_IP];
+
+u32 emp_gettimeflag()
+{
+	return g_timescope.open;
+}
+void emp_settimescope(u16 open,	u16 week,u16 times1,u16 timee1,u16 times2,	u16 timee2)
+{
+	g_timescope.open = open;
+	g_timescope.week = week;
+	g_timescope.times1 = times1;
+	g_timescope.timee1 = timee1;
+	g_timescope.times2 = times2;
+	g_timescope.timee2 = timee2;
+}
+inline void emp_initipempnode(TIpempnode* pIpem,TEmployee* pEm)
+{
+	pIpem->emp.ip = pEm->ip;
+
+	pIpem->emp.mode = pEm->mode;
+	pIpem->emp.specip = pEm->specip;
+	pIpem->emp.onpolicyid = pEm->onpolicyid;
+	pIpem->emp.offpolicyid = pEm->offpolicyid;
+	pIpem->emp.groupid = pEm->groupid;
+	pIpem->emp.personid = pEm->personid;
+	pIpem->emp.activetime = pEm->activetime;
+	
+	pIpem->emp.smtp = pEm->smtp;
+	pIpem->emp.pop3 = pEm->pop3;
+	pIpem->emp.webmail = pEm->webmail;
+	pIpem->emp.post = pEm->post;
+}
+
+inline void emp_initipemplist()
+{
+	u32 i = 0;
+	for(i=0;i<MAX_IP;i++)
+	{
+		INIT_HLIST_HEAD(&g_ipemplist[i]);
+	}
+}
+inline void emp_insertipempnode(u16 hash,TEmployee* pEm)
+{
+	TIpempnode* pIpemnode = (TIpempnode*)malloc(sizeof(TIpempnode));
+	if(pIpemnode != NULL)
+	{
+		emp_initipempnode(pIpemnode,pEm);
+		hlist_add_head(&pIpemnode->ipempnode,&g_ipemplist[hash]);
+	}
+}
+inline void emp_delipempnode(u16 hash)
+{
+	struct hlist_node *pos,*n;
+	TIpempnode* node;
+	hlist_for_each_safe(pos,n,&g_ipemplist[hash])
+	{
+		node = hlist_entry(pos,TIpempnode,ipempnode);
+		hlist_del(pos);
+		free(node);
+	}
+}
+
+TIpempnode* emp_getipempnode(u16 hash,u32 ip)
+{
+	struct hlist_node* pos,*n;
+	hlist_for_each_safe(pos,n,&g_ipemplist[hash])
+	{
+		TIpempnode *node = hlist_entry(pos,TIpempnode,ipempnode);
+		if(node->emp.ip == ip)
+		{
+			return node;
+		}
+	}
+	return NULL;
+}
+
+inline void emp_updateipempnode(u16 hash,TEmployee* pEm)
+{
+	struct hlist_node* pos,*n;
+	hlist_for_each_safe(pos,n,&g_ipemplist[hash])
+	{
+		TIpempnode *node = hlist_entry(pos,TIpempnode,ipempnode);
+		if(node->emp.ip == pEm->ip)
+		{
+			emp_initipempnode(node,pEm);
+		}
+	}			
+}
+inline u32 emp_getempmode(TIpempnode* p)
+{
+	u32 ret = p->emp.mode;
+	return ret;
+}
+inline u32 emp_getempspecip(TIpempnode* p)
+{
+	u32 ret = p->emp.specip;
+	return ret;
+}
+inline u32 emp_getemppolicyid(TIpempnode* p)
+{
+	u32 ret = 0;	
+
+	if(g_timescope.open == TIMEGATE_OPEN)
+	{
+		u8 week = 0x1<<((7-g_ptm->tm_wday)%7);
+		if(week & g_timescope.week)
+		{
+			u16 time = g_ptm->tm_hour*100 + g_ptm->tm_min;
+			if(INTIME1(time) || INTIME2(time))
+			{
+				ret = p->emp.onpolicyid;
+			}
+			ret = p->emp.offpolicyid;
+		}
+	}
+	else
+	{
+		ret = p->emp.onpolicyid;
+	}
+
+	return ret;
+}
+/*u32 emp_getemponpolicyid(void* p)
+{
+	TIpempnode* node = (TIpempnode*)p;
+	return node->emp.onpolicyid;
+}
+u32 emp_getempoffpolicyid(void* p)
+{
+	TIpempnode* node = (TIpempnode*)p;
+	return node->emp.offpolicyid;
+}*/
+
+inline u32 emp_getempgroupid(TIpempnode* p)
+{
+	u32 ret = p->emp.groupid;
+	return ret;
+}
+
+inline u32 emp_getempid(TIpempnode* p)
+{
+	u32 ret = p->emp.personid;
+	return ret;
+}
+
+inline u32 emp_getempactivetime(TIpempnode* p)
+{
+	u32 ret = p->emp.activetime;
+	return ret;
+}
+inline void emp_updateactivetime(TIpempnode* p,u32 time)
+{
+	p->emp.activetime = time;
+}
+inline u32 emp_getempsmtp(TIpempnode* p)
+{
+	u32 ret = p->emp.smtp;
+	return ret;
+}
+inline u32 emp_getemppop3(TIpempnode* p)
+{
+	u32 ret = p->emp.pop3;
+	return ret;
+}
+inline u32 emp_getempget(TIpempnode* p)
+{
+	u32 ret = p->emp.get;
+	return ret;
+}
+inline u32 emp_getemppost(TIpempnode* p)
+{
+	u32 ret = p->emp.post;
+	return ret;
+}

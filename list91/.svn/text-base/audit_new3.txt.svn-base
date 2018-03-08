@@ -1,0 +1,41 @@
+/*
+SQLyog - Free MySQL GUI v5.12
+Host - 5.0.51a : Database - audit
+*********************************************************************
+Server version : 5.0.51a
+*/
+
+SET NAMES utf8;
+
+SET SQL_MODE='';
+
+create database if not exists `audit`;
+
+USE `audit`;
+
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+
+/*Table structure for table `20091011pro` */
+
+DROP TABLE IF EXISTS `20091011pro`;
+
+CREATE TABLE `20091011pro` (
+  `logtime` int(4) unsigned NOT NULL,
+  `ip` int(4) unsigned default NULL,
+  `proid` int(4) unsigned default NULL,
+  `upflow` int(4) unsigned default NULL,
+  `downflow` int(4) unsigned default NULL,
+  `passnum` int(4) unsigned default NULL,
+  `blocknum` int(4) unsigned default NULL,
+  `account` varchar(32) character set utf8 collate utf8_unicode_ci default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `20091011pro` */
+
+LOCK TABLES `20091011pro` WRITE;
+
+UNLOCK TABLES;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

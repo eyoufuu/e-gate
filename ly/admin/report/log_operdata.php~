@@ -1,0 +1,57 @@
+<?php
+
+   require_once('_inc.php');
+ 
+?>
+
+<?php
+
+   session_start();
+   if(!isset($_SESSION["date1"]))
+   		return;
+   		
+   $ds =date("Y-m-d H:i:s",strtotime($_SESSION["date1"]));
+   $de = date("Y-m-d H:i:s",strtotime($_SESSION["date2"]));
+   if ($ds == $de)
+   echo date("Y-m-d H:i:s",strtotime($_SESSION["date2"])+24*3600);
+   $page = $_REQUEST['page'];
+	$limit= $_REQUEST['rows'];
+	$sidx = $_REQUEST['sidx'];
+	$sord = $_REQUEST['sord']; 
+	
+
+	if(!$sidx) $sidx =1;
+	$result ="SELECT COUNT(*) AS count FROM log_opr where date between '$ds' and '$de' ";
+   $row = $db->fetchRow($result);
+	$count = $row['count'];
+   if( $count >0 ) {
+	$total_pages = ceil($count/$limit);
+	  } else {
+		$total_pages = 0;
+	  }
+	if ($page > $total_pages) $page=$total_pages;
+	  $start = $limit*$page - $limit; // do not put $limit*($page - 1)
+	if($start <0) $start = 0;
+	 
+	 $SQL = " SELECT * FROM log_opr where (date between '$ds' and '$de')  LIMIT $start,$limit";
+    $result = $db->fetchRows( $SQL );
+
+	$responce->page = $page;
+	$responce->total = $total_pages;
+	$responce->records = $count;
+	$i = 0;
+	foreach($result as $row ){
+			
+			$responce->rows[$i]['id']=$row[id];
+			$responce->rows[$i]['cell']=array($row[id],$row[date],$row[username],$row[res],$row[opr],$row[sql]);
+			$i++;
+		      }
+	
+    echo json_encode($responce);
+	
+	 
+?> 
+
+
+
+

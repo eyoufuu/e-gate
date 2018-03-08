@@ -1,0 +1,22 @@
+#include "account.h"
+#include "bdbmem.h"
+
+#define ACCOUNT_H_NAME "account_name"
+#define ACCOUNT_H_SIZE 1
+
+mem_hash* paccount = NULL;
+
+void acc_initbdbaccount()
+{
+	paccount = create_hash_mem_info(ACCOUNT_H_NAME,ACCOUNT_H_NAME);	
+}
+void acc_uninitbdbaccount()
+{
+	delete_all_mem_hash(paccount);
+	close_mem_hash(paccount);
+}
+u32 acc_addbdbaccount(TAccount *p)
+{
+	return record_mem_hash_string(paccount,p->name,(void*)p,sizeof(TAccount));
+}
+

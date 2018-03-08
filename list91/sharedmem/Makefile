@@ -1,0 +1,1 @@
+gcc -shared -Wl,-soname,libsharedmem.so -o libsharedmem.so.1.0.1 sharedmem.c

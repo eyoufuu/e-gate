@@ -1,0 +1,24 @@
+#ifndef __MODULE_CONFIG_H__
+#define __MODULE_CONFIG_H__
+
+
+
+struct module_register
+{
+
+	char func_name[30];
+	//����0 : ip        1: ipgroup              2:rule 
+	char func_type;
+	unsigned char  func_pri;
+	unsigned char  func_protype;
+	unsigned char  func_dir;
+	unsigned short func_port;
+};
+
+typedef int  (*f_register_mod_func)(struct module_register** );
+
+const char * get_exe_path();
+int read_module_config_2(int (*load_m_func)(const char*));
+
+
+#endif

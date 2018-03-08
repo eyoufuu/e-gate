@@ -1,0 +1,149 @@
+#include "get.h"
+#include "bdbmem.h"
+
+#define HOST_BLACK 0
+#define	HOST_WHITE 1
+#define HOST_NONE 2
+
+#define NF_DROP 0
+#define NF_ACCEPT 1
+
+#define GET_HOST "Host"
+
+#define HOST_BW_NAME "black_white"
+#define HOST_BW_SIZE 1
+
+#define HOST_WEBCAT "bdblib"
+
+mem_hash* pbw = NULL;
+mem_hash* phost = NULL;
+
+void get_initbdbbwhost()
+{
+	pbw = create_hash_mem_info(HOST_BW_NAME,HOST_BW_SIZE);
+	phost = create_hash_mem_info(HOST_WEBCAT,HOST_BW_SIZE);
+}
+void get_uninitbdbbwhost()
+{
+	delete_all_mem_hash(pbw);
+	close_mem_hash(pbw);
+
+	delete_all_mem_hash(phost);
+	close_mem_hash(phost);
+}
+u32 get_addbdbbwhost(TBwhost* p)
+{
+	return record_mem_hash_string(pbw,(const char*)p->host,(void*)p,sizeof(TBwhost));
+}
+u32 get_delbdbbwhost(TBwhost* p)
+{
+	return delete_mem_hash_string(pbw,(const char*)p->host);
+}
+u32 get_isbwhost(u8* pstr,u32 len)
+{
+	TBwhost desc;
+	query_mem_hash_string_2(pbw,pstr,len,(char*)&desc,sizeof(TBwhost));
+	return desc.val; 
+//	return HOST_BLACK;
+//	return HOST_WHITE
+//	return HOST_NONE;
+}
+u8 get_filetypeanalysis(u8* pdata,u16 len)
+{
+}
+u32 get_haveget(u8* pdata,u16 len)
+{
+}
+inline void get_host(u8* buf,u16 buflen,u8** host,u32* hostlen)
+{
+	u8 i =0;
+	int ret = 0;
+	u8 pointer;
+	u32 len = buflen; 
+//get hostinfo
+	ret = ctl_search((void*)(buf),(void*)GET_HOST,len,4);
+	if(ret<0)
+	{
+		return;
+	}
+	i = i+ret;
+	i = i+5;//  i+4(host)	i++;(':')
+
+	while(*(buf+i) == ' '/*&&i<*buflen*/)
+	{
+		i++;
+		if(i>=len)
+		{
+			return;
+		}
+	}
+	if(i>=len)
+	{
+		return;
+	}
+	pointer = i;
+	*host =(u8*)( buf + pointer);
+	ret = ctl_search((void*)(buf+i),(void*)"\r\n",len-i,2);
+	if(ret<0)
+	{
+		return;
+	}
+	i = i+ret;
+	*hostlen = i-pointer;
+
+//	char urlaa[1024];
+//	memcpy(urlaa,buf+pointer,*hostlen);
+//	urlaa[*hostlen] = '\0';
+//	printf("urlaa=%s\n",urlaa);
+}
+
+u32 get_handle(u32 polid,u32 ip,u32 dir,u8* pdata,u16 len)
+{
+	u8* host = NULL;
+	u32 hostlen = 0;
+	if(DIR_SC == g_dir)
+	{
+		return NF_ACCEPT;
+	}
+	get_host(pdata,len,&host,&hostlen);
+	if(hostlen == 0)
+	{
+		return NF_ACCEPT;
+	}
+	u8 jh = jhash((void*)host,hostlen,HASH_VAL);
+	u8 bw = get_isbwhost(host,hostlen);
+	if(HOST_NONE!= bw)//bw host
+	{
+		return bw?NF_ACCEPT:NF_DROP;
+	}
+		
+	u32 filetypeid = get_filetypeanalysis(pdata,len);
+	if(0 != filetypeid)
+	{
+		u32 block = pol_getfiletyperesult(polid,filetypeid);
+		if(1 == pol_isfiletypelog(polid,filetypeid))
+		{
+			//..log host	
+		}
+		if(NF_DROP == block)
+		{
+			return NF_DROP;
+		}				
+	}
+	u8 webid = query_mem_hash(pbw,&jh);
+	if(0 != webid)
+	{
+		u32 block = pol_getwebresult(polid,webid);
+		if(1 == pol_isweblog(polid,webid))
+		{
+			//..log host send to process to write db
+		}
+		if(NF_DROP == block)
+		{
+			return NF_DROP;
+		}	
+	}
+	return NF_ACCEPT;	
+}
+
+

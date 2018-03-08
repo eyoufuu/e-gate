@@ -1,0 +1,4 @@
+[query2 module:M]--[time:2010-05-25 12:36:28]
+SQL:
+error:SQLSTATE[HY000]: General error: 1065 Query was empty
+

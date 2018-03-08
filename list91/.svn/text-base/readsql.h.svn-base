@@ -1,0 +1,37 @@
+#ifndef _MREADSQL_H
+#define _READSQL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <mysql.h>
+#include "global.h"
+#include "account.h"
+#include "filetype.h"
+#include "emp.h"
+#include "policy.h"
+#include "global.h"
+#include "imp2.h"
+
+/*
+#define SQL_SERVER "192.168.1.81"
+#define SQL_NAME_BASE "baseconfig"
+#define SQL_NAME_AUDIT "audit"
+#define SQL_USER "system"
+#define SQL_PWD  "123456"
+*/
+
+#define TABLE_DEFINE_CMD_CREATE "CREATE TABLE IF NOT EXISTS "
+
+#define TABLE_DEFINE_PRO_CONTENT " (logtime int(4) unsigned NOT NULL,\
+ip int(4) unsigned default NULL,\
+proid int(4) unsigned default NULL,\
+upflow int(4) unsigned default NULL,\
+downflow int(4) unsigned default NULL,\
+passnum  int(4) unsigned default NULL,\
+blocknum int(4) unsigned default NULL,\
+account varchar(32) character set utf8 collate utf8_unicode_ci default NULL)"       
+
+
+
+
+#endif

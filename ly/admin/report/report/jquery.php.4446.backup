@@ -1,0 +1,26 @@
+<html>
+<head><TITLE>test jquery</TITLE>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="screen" href="./css/screen.css" />
+<script language="javascript" type="text/javascript" src="./jquery-1.3.2.js"></script>
+
+<script language="javascript" type="text/javascript" src="custom.js"></script>
+
+
+
+
+
+</head>
+<body>
+
+<a>this is a test </a>
+
+<ol id="orderedlist">
+ <li>this is a blue css</li>
+ <LI> test blue      </LI>
+</ol>
+
+</body>
+
+
+</html>

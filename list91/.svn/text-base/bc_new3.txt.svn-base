@@ -1,0 +1,411 @@
+/*
+SQLyog - Free MySQL GUI v5.12
+Host - 5.0.51a : Database - baseconfig
+*********************************************************************
+Server version : 5.0.51a
+*/
+
+SET NAMES utf8;
+
+SET SQL_MODE='';
+
+create database if not exists `baseconfig`;
+
+USE `baseconfig`;
+
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+
+/*Table structure for table `cardinfo` */
+
+DROP TABLE IF EXISTS `cardinfo`;
+
+CREATE TABLE `cardinfo` (
+  `name` varchar(5) character set utf8 collate utf8_unicode_ci NOT NULL COMMENT 'eth0 1 2 3',
+  `type` int(4) NOT NULL default '0' COMMENT '0 lan 1 wan',
+  `rate` int(4) default NULL,
+  `ip` int(4) default NULL,
+  `mac` varchar(100) character set utf8 collate utf8_unicode_ci default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `cardinfo` */
+
+LOCK TABLES `cardinfo` WRITE;
+
+insert into `cardinfo` (`name`,`type`,`rate`,`ip`,`mac`) values ('eth0',2,NULL,NULL,NULL);
+insert into `cardinfo` (`name`,`type`,`rate`,`ip`,`mac`) values ('eth3',0,NULL,NULL,NULL);
+insert into `cardinfo` (`name`,`type`,`rate`,`ip`,`mac`) values ('eth2',0,NULL,NULL,NULL);
+insert into `cardinfo` (`name`,`type`,`rate`,`ip`,`mac`) values ('eth1',1,NULL,NULL,NULL);
+
+UNLOCK TABLES;
+
+/*Table structure for table `channel` */
+
+DROP TABLE IF EXISTS `channel`;
+
+CREATE TABLE `channel` (
+  `channelid` int(4) default NULL,
+  `ifid` int(4) default NULL,
+  `rate` int(4) default NULL,
+  `priority` int(4) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `channel` */
+
+LOCK TABLES `channel` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `companyinfo` */
+
+DROP TABLE IF EXISTS `companyinfo`;
+
+CREATE TABLE `companyinfo` (
+  `name` varchar(50) character set utf8 collate utf8_unicode_ci NOT NULL,
+  `id` int(4) NOT NULL,
+  `parentid` int(4) default NULL,
+  `description` varchar(100) character set utf8 collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `companyinfo` */
+
+LOCK TABLES `companyinfo` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `filecat` */
+
+DROP TABLE IF EXISTS `filecat`;
+
+CREATE TABLE `filecat` (
+  `typeid` int(4) unsigned NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` varchar(100) default NULL,
+  PRIMARY KEY  (`typeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `filecat` */
+
+LOCK TABLES `filecat` WRITE;
+
+insert into `filecat` (`typeid`,`name`,`description`) values (1,'jpg',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (2,'gif',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (3,'png',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (4,'css',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (5,'js',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (6,'ent',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (7,'cs',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (8,'html',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (9,'swf',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (10,'flv',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (11,'mp3',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (12,'iso',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (13,'exe',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (14,'xml',NULL);
+insert into `filecat` (`typeid`,`name`,`description`) values (15,'wma',NULL);
+
+UNLOCK TABLES;
+
+/*Table structure for table `fileinfo` */
+
+DROP TABLE IF EXISTS `fileinfo`;
+
+CREATE TABLE `fileinfo` (
+  `policyid` int(4) NOT NULL,
+  `fileid` int(4) NOT NULL,
+  `pass` int(4) NOT NULL,
+  `log` int(4) NOT NULL,
+  PRIMARY KEY  (`policyid`,`fileid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `fileinfo` */
+
+LOCK TABLES `fileinfo` WRITE;
+
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,0,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,1,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,2,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,3,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,4,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,5,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,6,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,7,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,8,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,9,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,10,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,12,1,1);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,13,1,0);
+insert into `fileinfo` (`policyid`,`fileid`,`pass`,`log`) values (0,14,1,0);
+
+UNLOCK TABLES;
+
+/*Table structure for table `globalpara` */
+
+DROP TABLE IF EXISTS `globalpara`;
+
+CREATE TABLE `globalpara` (
+  `istrafficlog` int(4) default '0',
+  `logintervaltime` int(4) default '0',
+  `gate` int(4) default '1',
+  `isipmacbind` int(4) default '0',
+  `systemmode` int(4) default '0',
+  `ispolicyopen` int(4) default '0',
+  `issmtpaudit` int(4) default '0',
+  `ispop3audit` int(4) default '0',
+  `ispostaudit` int(4) default '0',
+  `isprofilter` int(4) default '0',
+  `iswebfilter` int(4) default '0',
+  `iskeywordfilter` int(4) default '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `globalpara` */
+
+LOCK TABLES `globalpara` WRITE;
+
+insert into `globalpara` (`istrafficlog`,`logintervaltime`,`gate`,`isipmacbind`,`systemmode`,`ispolicyopen`,`issmtpaudit`,`ispop3audit`,`ispostaudit`,`isprofilter`,`iswebfilter`,`iskeywordfilter`) values (0,1,1,0,0,0,0,0,0,0,1,0);
+
+UNLOCK TABLES;
+
+/*Table structure for table `keywordinfo` */
+
+DROP TABLE IF EXISTS `keywordinfo`;
+
+CREATE TABLE `keywordinfo` (
+  `policyid` int(4) default NULL,
+  `keywordid` int(4) default NULL,
+  `utf` varchar(64) default NULL,
+  `gb` varchar(64) default NULL,
+  `pass` int(4) default NULL,
+  `log` int(4) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+/*Data for the table `keywordinfo` */
+
+LOCK TABLES `keywordinfo` WRITE;
+
+insert into `keywordinfo` (`policyid`,`keywordid`,`utf`,`gb`,`pass`,`log`) values (NULL,NULL,NULL,NULL,NULL,NULL);
+
+UNLOCK TABLES;
+
+/*Table structure for table `netseg` */
+
+DROP TABLE IF EXISTS `netseg`;
+
+CREATE TABLE `netseg` (
+  `id` int(4) NOT NULL auto_increment,
+  `name` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL,
+  `ips` int(4) unsigned NOT NULL,
+  `ipe` int(4) unsigned NOT NULL,
+  `policyid` int(4) default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `netseg` */
+
+LOCK TABLES `netseg` WRITE;
+
+insert into `netseg` (`id`,`name`,`ips`,`ipe`,`policyid`) values (1,'a',3232235777,3232236030,1);
+
+UNLOCK TABLES;
+
+/*Table structure for table `policy` */
+
+DROP TABLE IF EXISTS `policy`;
+
+CREATE TABLE `policy` (
+  `policyid` int(4) NOT NULL,
+  `name` varchar(100) character set utf8 collate utf8_unicode_ci default NULL,
+  `proaudit` int(4) default '0',
+  `webaudit` int(4) default '0',
+  `smtpaudit` int(4) default '0',
+  `pop3audit` int(4) default '0',
+  `postaudit` int(4) default '0',
+  `keywordaudit` int(4) default '0',
+  `description` varchar(100) character set utf8 collate utf8_unicode_ci default NULL,
+  `time` int(4) default '0',
+  `week` int(4) default '127',
+  `times1` int(4) default '0',
+  `timee1` int(4) default '2400',
+  `times2` int(4) default '0',
+  `timee2` int(4) default '2400',
+  PRIMARY KEY  (`policyid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `policy` */
+
+LOCK TABLES `policy` WRITE;
+
+insert into `policy` (`policyid`,`name`,`proaudit`,`webaudit`,`smtpaudit`,`pop3audit`,`postaudit`,`keywordaudit`,`description`,`time`,`week`,`times1`,`timee1`,`times2`,`timee2`) values (0,'b',0,0,0,0,0,0,NULL,0,127,0,2400,0,2400);
+insert into `policy` (`policyid`,`name`,`proaudit`,`webaudit`,`smtpaudit`,`pop3audit`,`postaudit`,`keywordaudit`,`description`,`time`,`week`,`times1`,`timee1`,`times2`,`timee2`) values (1,'a',0,0,0,0,0,0,NULL,1,127,0,1200,1300,1555);
+
+UNLOCK TABLES;
+
+/*Table structure for table `procat` */
+
+DROP TABLE IF EXISTS `procat`;
+
+CREATE TABLE `procat` (
+  `proid` int(4) NOT NULL,
+  `name` varchar(100) character set utf8 collate utf8_unicode_ci default NULL,
+  `description` varchar(100) character set utf8 collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`proid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `procat` */
+
+LOCK TABLES `procat` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `proinfo` */
+
+DROP TABLE IF EXISTS `proinfo`;
+
+CREATE TABLE `proinfo` (
+  `policyid` int(4) NOT NULL,
+  `proid` int(4) NOT NULL,
+  `pass` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `proinfo` */
+
+LOCK TABLES `proinfo` WRITE;
+
+insert into `proinfo` (`policyid`,`proid`,`pass`) values (1,1,0);
+insert into `proinfo` (`policyid`,`proid`,`pass`) values (1,2,1);
+insert into `proinfo` (`policyid`,`proid`,`pass`) values (2,3,1);
+
+UNLOCK TABLES;
+
+/*Table structure for table `rules` */
+
+DROP TABLE IF EXISTS `rules`;
+
+CREATE TABLE `rules` (
+  `channelid` int(4) default NULL,
+  `protocol` int(4) default NULL,
+  `mode` int(4) default NULL,
+  `val` varchar(50) character set utf8 collate utf8_unicode_ci default NULL COMMENT 'ip,port,ipseg',
+  `description` varchar(100) character set utf8 collate utf8_unicode_ci default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `rules` */
+
+LOCK TABLES `rules` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `specweb` */
+
+DROP TABLE IF EXISTS `specweb`;
+
+CREATE TABLE `specweb` (
+  `host` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL,
+  `pass` int(4) NOT NULL,
+  PRIMARY KEY  (`host`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `specweb` */
+
+LOCK TABLES `specweb` WRITE;
+
+insert into `specweb` (`host`,`pass`) values ('www.sina.com.cn',1);
+insert into `specweb` (`host`,`pass`) values ('www.sohu.com',0);
+
+UNLOCK TABLES;
+
+/*Table structure for table `useraccount` */
+
+DROP TABLE IF EXISTS `useraccount`;
+
+CREATE TABLE `useraccount` (
+  `id` int(4) NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL,
+  `passwd` varchar(100) NOT NULL,
+  `groupid` int(4) default NULL,
+  `personid` int(4) default NULL,
+  `bindip` int(4) default '0',
+  `policyid` int(4) default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `useraccount` */
+
+LOCK TABLES `useraccount` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `userip` */
+
+DROP TABLE IF EXISTS `userip`;
+
+CREATE TABLE `userip` (
+  `netsegid` int(4) NOT NULL default '0',
+  `ip` int(4) unsigned NOT NULL,
+  `mac` int(11) default NULL,
+  `ipmacbind` int(4) default '0',
+  `name` varchar(100) character set utf8 collate utf8_unicode_ci default NULL,
+  `groupid` int(4) default '0',
+  `personid` int(4) default '0',
+  `policyid` int(4) default '1',
+  `specip` int(4) default '2',
+  PRIMARY KEY  (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `userip` */
+
+LOCK TABLES `userip` WRITE;
+
+insert into `userip` (`netsegid`,`ip`,`mac`,`ipmacbind`,`name`,`groupid`,`personid`,`policyid`,`specip`) values (0,3232235901,NULL,0,NULL,0,0,1,1);
+insert into `userip` (`netsegid`,`ip`,`mac`,`ipmacbind`,`name`,`groupid`,`personid`,`policyid`,`specip`) values (0,3232235911,NULL,0,NULL,0,0,1,1);
+insert into `userip` (`netsegid`,`ip`,`mac`,`ipmacbind`,`name`,`groupid`,`personid`,`policyid`,`specip`) values (0,3232235913,NULL,0,NULL,0,0,1,1);
+
+UNLOCK TABLES;
+
+/*Table structure for table `webcat` */
+
+DROP TABLE IF EXISTS `webcat`;
+
+CREATE TABLE `webcat` (
+  `webid` int(4) NOT NULL,
+  `name` varchar(100) default NULL,
+  `description` varchar(100) default NULL,
+  PRIMARY KEY  (`webid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `webcat` */
+
+LOCK TABLES `webcat` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `webinfo` */
+
+DROP TABLE IF EXISTS `webinfo`;
+
+CREATE TABLE `webinfo` (
+  `policyid` int(4) NOT NULL,
+  `webid` int(4) NOT NULL,
+  `pass` int(4) default '1',
+  `log` int(4) default '0',
+  PRIMARY KEY  (`policyid`,`webid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `webinfo` */
+
+LOCK TABLES `webinfo` WRITE;
+
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,1,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,2,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,3,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,4,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,5,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,6,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,7,1,1);
+insert into `webinfo` (`policyid`,`webid`,`pass`,`log`) values (0,8,1,0);
+
+UNLOCK TABLES;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

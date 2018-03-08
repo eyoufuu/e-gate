@@ -1,0 +1,1 @@
+cmd_/bri/file_type/filetype.ko := ld -r -m elf_i386 -T /usr/src/linux-2.6.32.6/scripts/module-common.lds --build-id -o /bri/file_type/filetype.ko /bri/file_type/filetype.o /bri/file_type/filetype.mod.o

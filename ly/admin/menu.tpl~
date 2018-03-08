@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>菜单</title>
+<link href="common/menu.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<base target="mcMainFrame" />
+</head>
+<script language="javascript">
+<!--
+function $(objectId) 
+{
+	 return document.getElementById(objectId);
+}
+
+function showHide(objname)
+{
+    var obj = $(objname);
+    if(obj.style.display == "none")
+    {
+        obj.style.display = "block";
+    }
+    else
+    {
+        obj.style.display = "none";
+    }
+    
+    return false;
+}
+
+function refreshMainFrame(url)
+{
+    parent.mcMainFrame.document.location = url;
+}
+-->
+</script>
+<base target="mcMainFrame">
+<body>
+<div class="menu">
+
+
+{--if "product" == $module--}
+     <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">流量展示</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='tc/water_total.php'>总流量</a></li>
+				<li><a href='tc/water_ip_top10.php'>TOP10-IP流量</a></li>
+				<li><a href='tc/water_pro_top10.php'>TOP10-网络软件流量</a></li>
+            </ul>
+        </dd>
+    </dl>
+    
+    <dl>
+        <dt><a href="" onclick="return showHide('items1');" target="_self">简单流控</a></dt>
+        <dd id="items1" style="display:block;">
+            <ul>
+				<li><a href='tc/tc_simple.php'>IP组控制</a></li>
+            </ul>
+        </dd>
+    </dl>
+    
+    <dl>
+        <dt><a href="" onclick="return showHide('items2');" target="_self">高级流控</a></dt>
+        <dd id="items2" style="display:block;">
+            <ul>
+				<li><a href='tc/tc_advance_road.php'>通道设置</a></li>
+				<li><a href='#'>通道流量观测</a></li>
+            </ul>
+        </dd>
+    </dl>
+	
+		<dl>
+        <dt><a href="" onclick="return showHide('items2');" target="_self">员工观察通道</a></dt>
+        <dd id="items2" style="display:block;">
+            <ul>
+				<li><a href='tc/tc_p_traffic.php'>个人流量展示</a></li>
+				<li><a href='tc/tc_p_everyday.php'>每日记录</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <script type="text/javascript">refreshMainFrame('tc/water_total.php');</script>
+{--/if--} 
+
+{--if "guestbook" == $module--}
+    <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">策略管理</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='policy/policy_name2.php'>策略制定</a></li>
+				<li><a href='policy/black_web2.php'>黑白网址</a></li>
+				<li><a href='policy/policy_nametwh.php'>黑白IP</a></li>
+				<li><a href='policy/test.php'>URL关键词</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <script type="text/javascript">refreshMainFrame('policy/policy_name2.php');</script>
+{--/if--} 
+
+{--if "job" == $module--}
+    <dl>
+        
+        <dt><a href="" onclick="return showHide('items1');" target="_self">发帖管理</a></dt>
+        <dd id="items1" style="display:block;">
+            <ul>
+				<li><a href='audit/post.php'>发帖列表</a></li>
+            </ul>
+        </dd>
+        <dt><a href="" onclick="return showHide('items1');" target="_self">邮件smtp管理</a></dt>
+        <dd id="items1" style="display:block;">
+            <ul>
+				<li><a href='audit/smtp.php'>邮件smtp列表</a></li>
+            </ul>
+        </dd>
+        <dt><a href="" onclick="return showHide('items1');" target="_self">邮件POP3管理</a></dt>
+        <dd id="items1" style="display:block;">
+            <ul>
+				<li><a href='audit/pop3.php'>邮件POP3列表</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <script type="text/javascript">refreshMainFrame('audit/post.php');</script>
+{--/if--} 
+
+
+
+
+{--if "other" == $module--}
+   <dl>
+
+          <dt><a href="" onclick="return showHide('items0');" target="_self">报表</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='report/condition.php'>设置</a></li>
+				<li><a href='report/updownflow.php'>上下行流量</a></li>
+            <li><a href='report/topipflow.php'>Top10IP流量</a></li>
+				<li><a href='report/topblockip.php'>Top10阻挡IP</a></li>
+            <li><a href='report/proflow.php'>Top10协议流量</a></li>
+            <li><a href='report/topblockip.php'>Top10阻挡协议</a></li>
+				<li><a href='report/webcount.php'>Top10网站</a></li>
+            <li><a href='report/topwebcat.php'>Top10网站分类</a></li>
+            </ul>
+        </dd>
+
+        <dt><a href="" onclick="return showHide('items0');" target="_self">日志</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+                 <li><a href='report/keycount.php'>关键词</a></li>
+				     <li><a href='report/filetypecount.php'>文件类型</a></li>
+				     <li><a href='report/webcatcount.php'>网站分类</a></li>
+                 <li><a href='report/log_opercount.php'>操作日志</a></li>
+				
+            </ul>
+        </dd>
+       
+        
+    </dl>
+    <script type="text/javascript">refreshMainFrame('report/condition.php');</script>
+{--/if--} 
+
+{--if "news" == $module--}
+    <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">网卡接口</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='config/interface.php'>网卡列表</a></li>
+		      <li><a href='config/ip_mac2.php'>MAC-IP绑定</a></li>
+
+            </ul>
+        </dd>
+    </dl>
+     <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">管理</a></dt>
+        <dd id="items0" style="display:block;">
+             <ul>
+				<li><a href='system/admin_groups.php'>管理员组</a></li>
+				<li><a href='system/admin_group_add.php'>添加管理员组</a></li>
+				<li><a href='system/admin_admins.php'>管理员</a></li>
+				<li><a href='system/admin_admin_add.php'>添加管理员</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+    <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">用户管理</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='user_manager/user_manager2.php'>用户网段管理</a></li>
+		      <li><a href='user_manager/clientlog.php'>客户端登陆方式</a></li>
+
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="" onclick="return showHide('items1');" target="_self">邮件服务</a></dt>
+        <dd id="items1" style="display:block;">
+            <ul>
+				<li><a href='config/mail_config.php'>smtp服务</a></li>
+				<li><a href='news/category_add.php'>发送管理</a></li>
+            </ul>
+        </dd>
+    </dl>
+
+     <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">数据备份与回复</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='system/db_export.php'>数据备份</a></li>
+            </ul>
+            <ul>
+				<li><a href='system/db_import.php'>数据恢复</a></li>
+            </ul>
+        </dd>
+    </dl>
+
+     <dl>
+        <dt><a href="" onclick="return showHide('items0');" target="_self">系统信息/a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='system/sysinfo.php'>系统信息</a></li>
+            </ul>
+        </dd>
+    </dl>
+
+     <dl>
+        <dt><a href="" onclick="return showHide('items1');" target="_self">企业信息</a></dt>
+        <dd id="items1" style="display:block;">
+            <ul>
+				<li><a href='company/cominfo.php'>企业信息列表</a></li>
+				<li><a href='company/infoadd.php'>添加企业信息</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <script type="text/javascript">refreshMainFrame('system/sysinfo.php');</script>
+{--/if--} 
+
+{--if "tools" == $module--}
+   <dl>
+
+          <dt><a href="" onclick="return showHide('items0');" target="_self">管理员工具</a></dt>
+        <dd id="items0" style="display:block;">
+            <ul>
+				<li><a href='tools/index2.php'>工具</a></li>
+				
+            </ul>
+        </dd>
+    </dl>
+    <script type="text/javascript">refreshMainFrame('tools/index2.php');</script>
+{--/if--} 
+
+
+
+
+
+</div>
+</body>
+</html>

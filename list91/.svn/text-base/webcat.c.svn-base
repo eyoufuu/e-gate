@@ -1,0 +1,59 @@
+#include "webcat.h"
+#include "jhash.h"
+#include "serv.h"
+#include "bdb.h"
+#include "ctl.h"
+#include "emp.h"
+
+DB* g_pbdb = NULL;
+extern inline TEmpnode* user_getipempptr();
+void webcat_init()
+{
+        if(0 == openbdb())
+        {
+                DEBUG(D_WARNING)("openbdb webcat error\n");
+                exit(1);
+        }        
+}
+void webcat_uninit()
+{
+       closedb();
+}
+u8 webcat_getwebcat(u32 jhash)
+{
+	return querybdb(&jhash);
+}
+
+inline u32 webcat_handle(u32 polid,u8* get,u16 getlen,u8* host,u16 hostlen,u8* mac)
+{
+        u32 pass = 1;
+        u32 jh = jhash((void*)host,hostlen,HASH_VAL);
+        u8 webid = webcat_getwebcat(jh);
+         DEBUG(D_INFO)("webid= %d\n",webid);
+//	if(unlikely(0 != webid))
+	{
+		pass = pol_getwebpass(polid,webid);
+		if(1 == pol_isweblog(polid,webid))
+		{
+			u32 len = 36+getlen+hostlen;
+        		ctl_setpkthead(g_sendpkthead,len,LOG_WEBGET);
+        		TEmpnode* pemp = user_getipempptr();
+                        memcpy(g_sendpkthead+14,&g_pkt.innerip,4);
+                    	memcpy(g_sendpkthead+18,&g_pkt.outerip,4);
+                    	memcpy(g_sendpkthead+22,mac,6);
+                	u32 accid = 0;
+        		if(unlikely(SYS_LONGIN == emp_getempmode(pemp)))
+        		{
+        			accid =  emp_getempaccid(pemp);                        
+        		}		
+                        memcpy(g_sendpkthead+28,&accid,4);
+	                (*(u16*)(g_sendpkthead+32)) = 1;
+		       (*(u16*)(g_sendpkthead+34)) = webid;	
+	                (*(u16*)(g_sendpkthead+36)) = pass;
+        		serv_sendto(g_sendpkthead,38);
+        		serv_sendto(get,getlen);
+        		serv_sendto(host,hostlen);
+		}
+	}
+        return pass;
+}

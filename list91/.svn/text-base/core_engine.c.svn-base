@@ -1,0 +1,950 @@
+#include <stdio.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <dlfcn.h>
+#include <string.h>
+#include "core_engine.h"
+#include "module_config.h"
+#include "list.h"
+
+
+#define FUNC_IP 0
+#define FUNC_IP_GROUP 1
+#define FUNC_RULE 2
+
+//�ڴ��е��Ų� 
+//0x74746820 - > 20 68 74 74 ����С��
+
+//qianbo 2009-10-15
+//
+#define get_port_hash(port)  (port)
+#define get_ip_hash(ip) (ip>>16)
+
+#define MATRIX_IP    65536
+#define MATRIX_PORT  65536
+
+#define MATRIX_IP_H  1024
+#define MATRIX_PORT_H 1024
+
+#define GOOD_NUMBER if(ret>=3) return ret
+#define GOOD_RES ret>=3
+#define UNTOUCHED_NUMBER return UNTOUCHED
+
+       u32 x1 = 0;
+	u32 x2 = 0;
+
+LIST_HEAD(ctrl_function_list);
+static struct hlist_head g_core_pro_portt[MATRIX_PORT] ;
+static struct hlist_head g_core_pro_portu[MATRIX_PORT];
+static struct hlist_head g_core_pro_ip[MATRIX_IP]     ;
+
+static struct hlist_head g_core_matrix_t[MATRIX_IP_H][MATRIX_PORT_H];
+static struct hlist_head g_core_matrix_u[MATRIX_IP_H][MATRIX_PORT_H];
+
+
+#define MAX_BYTE_COUNT 16
+
+struct core_matrix
+{
+//���?4��count
+
+	struct hlist_node hashnode;
+	u32 ip;
+	u16 port;
+	u16 reverse;
+	u32 proid;
+	u32 time;
+	//敏感数据的次�?
+	u16 sensitive_count;
+	//数据次数
+	u16 count;
+	//存储的数�?
+	u8   byte_res[MAX_BYTE_COUNT][12];
+};
+
+
+
+//��ѯ����
+
+
+
+//���йҽӵ�ģ�鱣������������
+struct module_list
+{
+    struct list_head list_node;
+	//ģ����Ʋ��ܳ���?2�ֽ�
+    char module_name[32];	
+	//�����ľ���ͷ�ʱ�ر�?
+    void* handle;
+};
+
+
+struct core_ip
+{
+	struct hlist_node hashnode;
+	unsigned int proid;
+	//����ip��ַ����
+	unsigned int outerip;
+};
+
+struct core_port_tu
+{
+	struct hlist_node hashnode;
+      // �����?5535����ʵ���Բ���������?
+	unsigned short outerport;  
+	unsigned char dir;
+	//�����ֽ�Ϊ0
+	unsigned char reserve;
+	func_pro function;
+};
+
+
+
+ 
+
+static void _add_core_ip(const unsigned int ip,const unsigned int proid)
+{
+	struct core_ip* n =(struct core_ip*)malloc(sizeof(struct core_ip));
+	if(n!=NULL)
+	{
+		n->outerip = ip;
+		n->proid = proid;
+		hlist_add_head(&n->hashnode,&g_core_pro_ip[get_ip_hash(ip)]);
+		//hashtable_add(g_core_pro_ip, n->hashnode,get_ip_hash(ip));
+	}
+}
+
+
+
+static void _add_module_init()
+{
+	INIT_LIST_HEAD(&ctrl_function_list);
+}
+
+
+
+
+
+//Ҫ������ҵ��˿���?
+//func ���ܺ���
+//pri    ���ȼ���
+//protype tcp udp Э��
+//outerport   ����˿
+#if 0
+void test_list(int n )
+{
+	int i = 0;
+	struct core_port_tu* ptu;
+	struct hlist_node *pos;
+	hlist_for_each(pos,&g_core_pro_portt[20480])
+		{
+			ptu = hlist_entry(pos,struct core_port_tu,hashnode);
+			//printf("%d\n",ptu->outerport);
+			i++;
+		}
+	printf("time %d :g_core_pro_portt has 20480 member :%d\n",n,i);
+}
+#endif
+
+static int _add_core_tu(func_pro func, unsigned char dir,unsigned char  pri,unsigned char protype, unsigned short outerport)
+{
+	struct core_port_tu* n = malloc(sizeof(struct core_port_tu));
+	if(n==NULL)
+		return -1;
+
+	n->outerport = outerport;
+	n->dir= dir;
+	n->function      = func;
+	
+	if(protype == IP_TCP)
+	{
+		printf("add function on %d\n",get_port_hash(outerport));
+		hlist_add_head(&n->hashnode,&g_core_pro_portt[get_port_hash(outerport)]);
+
+		return IP_TCP;
+		//hashtable_add(g_core_pro_portt, n->hashnode, get_port_hash(outerport));
+	}
+	else//IP_UDP
+	{
+		hlist_add_head(&n->hashnode,&g_core_pro_portu[get_port_hash(outerport)]);
+		return IP_UDP;
+		
+		//hashtable_add(g_core_pro_portu,n->hashnode,get_port_hash(outerport));
+	}
+}
+
+
+static void initialize_core_matrix()
+{
+
+	int i = 0;
+	int j = 0;
+	_add_module_init();
+	for(i =0;i<MATRIX_IP;i++)
+	{
+		INIT_HLIST_HEAD(&g_core_pro_ip[i]);
+	}
+
+	for(i =0;i<MATRIX_PORT;i++)
+	{
+		INIT_HLIST_HEAD(&g_core_pro_portu[i]);
+		INIT_HLIST_HEAD(&g_core_pro_portt[i]);
+	}
+
+	for(i=0;i<MATRIX_IP_H;i++)
+		for(j=0;j<MATRIX_PORT_H;j++)
+		{
+			INIT_HLIST_HEAD(&g_core_matrix_t[i][j]);
+			INIT_HLIST_HEAD(&g_core_matrix_u[i][j]);
+		}
+
+
+}
+
+
+static void uninitialize_core_matrix()
+{
+	int i =0;
+	int j = 0;
+	struct hlist_node* pos ,*q;
+	struct core_ip *n;
+	struct core_port_tu *ptu;
+       struct core_matrix *matrix;
+	struct list_head * pos_module;
+	struct module_list* ml;
+	list_for_each(pos_module, &ctrl_function_list)
+	{
+		ml=list_entry(pos_module,struct module_list, list_node);
+	 	list_del(pos_module);
+		free(ml);
+	}
+ 	for(i =0;i<MATRIX_IP;i++)
+ 	{
+		hlist_for_each_safe(pos,q,&g_core_pro_ip[i])
+		{
+			n= hlist_entry(pos,struct core_ip ,hashnode);
+			hlist_del(pos);
+			free(n);
+		}
+ 	}
+
+	pos = NULL;
+	q = NULL;
+	for(i =0;i<MATRIX_PORT;i++)
+ 	{
+		hlist_for_each_safe(pos,q,&g_core_pro_portt[i])
+		{
+			ptu= hlist_entry(pos,struct core_port_tu , hashnode);
+			hlist_del(pos);
+			free(ptu);
+		}
+ 	}
+	
+	pos = NULL;
+	q = NULL;
+	for(i =0;i<MATRIX_PORT;i++)
+ 	{
+		hlist_for_each_safe(pos,q,&g_core_pro_portu[i])
+		{
+			ptu= hlist_entry(pos,struct core_port_tu , hashnode);
+			hlist_del(pos);
+			free(ptu);
+		}
+ 	}
+	pos = NULL;
+	q = NULL;
+	for(i=0;i<MATRIX_IP_H;i++)
+		for(j=0;j<MATRIX_PORT_H;j++)
+		{
+			hlist_for_each_safe(pos,q,&g_core_matrix_t[i][j])
+			{
+				matrix = hlist_entry(pos,struct core_matrix,hashnode);
+				hlist_del(pos);
+				free(matrix);
+			}
+		}
+	pos = NULL;
+	q = NULL;
+	for(i=0;i<MATRIX_IP_H;i++)
+		for(j=0;j<MATRIX_PORT_H;j++)
+		{
+			hlist_for_each_safe(pos,q,&g_core_matrix_u[i][j])
+			{
+				matrix = hlist_entry(pos,struct core_matrix,hashnode);
+				hlist_del(pos);
+				free(matrix);
+			}
+		}
+	
+		
+}
+
+
+
+
+
+static inline u32 core_iterate_ip(u32 ip,   u32 id)
+{
+	struct hlist_node * pos=NULL;
+	struct core_ip * n=NULL;
+	hlist_for_each(pos, &g_core_pro_ip[id]) 
+	{
+		n = (struct core_ip*)hlist_entry(pos, struct core_ip, hashnode);
+		
+		if (n->outerip == ip) 
+		{
+			return n->proid ;
+		}
+	}
+
+	UNTOUCHED_NUMBER;
+}
+
+
+
+
+
+//in the matrix ,we will find the 
+static inline u32 core_iterate( struct hlist_head* table, u8 dir,u8* payload, u32 plen, u32 id)
+{
+	const struct core_port_tu * coretu = NULL;
+	unsigned int ret = 0;
+	struct hlist_node  *pos;
+
+	hlist_for_each(pos,&table[id])
+	{
+		coretu = (struct core_port_tu*)hlist_entry(pos, struct core_port_tu, hashnode);
+		if(coretu->dir== dir|| coretu->dir== DIR_IN)
+		{
+			ret = coretu->function(dir,payload,plen);
+			if(ret >=3)
+				return ret;
+		}
+	}
+	UNTOUCHED_NUMBER;
+
+
+}
+
+static inline u32 analyse_in_matrix_record(struct core_matrix * cm, u32 timer,u32 plen)
+{
+	
+}
+
+static inline u32 analyse_in_matrix_ip()
+{
+	
+}
+
+static inline u32 analyse_in_matrix_count(struct core_matrix* cm,u32 timer,u32 plen)
+{
+//ÿ�δ���1000�ֽڱȽ�����
+#define MAX_PER_COUNT 1000 
+	int i  = 0;
+	int n = 0;
+	cm->count++;
+	if(plen>=MAX_PER_COUNT)
+	{
+		cm->sensitive_count++;
+	}
+	//如果统计次数到了
+	if(cm->count>MAX_BYTE_COUNT)
+	{
+		if(cm->sensitive_count*2>=cm->count)
+		{
+			cm->proid = PRO_P2P_LARGE;
+			return PRO_P2P_LARGE;
+		}
+	}
+	return NO_MATCH_YET;
+
+}
+
+//���ȵõ�����Ľڵ�?
+static inline struct core_matrix * analyse_in_matrix_search(struct hlist_head* table, u32 innerip,u16 innerport,u32 timer,u32 plen)
+{
+	struct hlist_node * pos=NULL;
+	struct hlist_node * n=NULL;
+	struct core_matrix* cm = NULL;
+	struct core_matrix* cm_dest = NULL;
+	hlist_for_each_safe(pos,n,table)
+	{
+		cm = hlist_entry(pos,struct core_matrix,hashnode);
+		if((cm->ip==innerip) && (cm->port == innerport))
+		{
+	      if(timer- cm->time > 30)
+      		{
+      		       	cm->count  = 0;
+      		       	cm->proid  = 0;
+      		       	cm->time = timer;
+	        }
+			cm_dest = cm;	  
+		}
+		else
+		{
+	           if(timer- cm->time > 30)
+      		       {
+	            	hlist_del(pos);
+						free(cm);
+	              }
+		}
+	}
+	return cm_dest;
+	
+	
+}
+
+#if 0
+static inline unsigned int analyse_in_matrix_0(struct hlist_head* table,u32 innerip,u16 innerport,u32 timer, u16 plen)
+{
+
+	struct hlist_node * pos=NULL;
+	struct hlist_node * n=NULL;
+	struct core_matrix* cm;
+	hlist_for_each_safe(pos,n,table)
+	{
+		cm = hlist_entry(pos,struct core_matrix,hashnode);
+		if((cm->ip==innerip) && (cm->port == innerport))
+		{
+		      if(timer- cm->time >30)
+		      {
+			       cm->proid = UNTOUCHED;
+				cm->time = timer;
+				cm->count = 0;
+				cm->byte_count[0] = plen;
+				return NO_MATCH_YET;
+		      	}
+			if(cm->proid >= 3)
+				return cm->proid;
+			return analyse_in_matrix_count(cm,timer,plen);			
+		}
+		else
+		{
+		//����30��Ľڵ�����?
+			if (timer-cm->time>30)
+			{
+				free(cm);
+				hlist_del(pos);
+			}
+		}
+	}
+	return UNTOUCHED;
+
+}
+#endif 
+#if 1
+
+static inline u32 analyse_in_matrix_1(struct hlist_head* table,u32 outerip,u16 outerport,u8 dir,u8* payload, u32 plen)
+{
+
+
+	u32 ret                   = UNTOUCHED ;
+	//if the ip address can be recongnized ,we can find in ip matrix
+	ret = core_iterate_ip(outerip,get_ip_hash(outerip));
+       GOOD_NUMBER;
+       ret = core_iterate(table,dir,payload,plen,get_port_hash(outerport));
+	GOOD_NUMBER;
+
+	UNTOUCHED_NUMBER;
+
+}
+#endif 
+static inline u32 analyse_in_matrix_2(struct hlist_head * table, u8 dir,u8* payload,u32 plen)
+{
+ 	u32 ret = UNTOUCHED ;
+
+	//��һ��һ���Ǵ�0�˿��ϲ�ѯ����Ϊ��ȷ���˿ڵĶ�̬�ⶼ��0�˿�
+       ret = core_iterate(table,dir,payload,plen,0);
+	GOOD_NUMBER;
+
+	UNTOUCHED_NUMBER;
+}
+
+//���浽��������
+static inline struct core_matrix* create_mem_for_matrix(struct hlist_head* table,u32 innerip, u8 innerport, u32 proid,u32 timer)
+{
+		struct core_matrix * ma = malloc(sizeof(struct core_matrix));
+		ma->ip = innerip;
+		ma->port = innerport;
+		ma->proid = proid;
+		ma->time  = timer;
+		ma->reverse = 0;
+		hlist_add_head(&ma->hashnode, table);
+		return ma;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//�����Ƕ�ģ��Ĳ���?
+
+
+//initialize the module link table
+
+
+
+static void add_module_tolist(void *handle, const char *name)
+{
+	struct module_list * tmp;
+	struct list_head *pos = NULL;
+   char * sname;
+   pos = NULL;
+	tmp = NULL;
+	struct module_list * new_mo = malloc(sizeof(struct module_list ));
+	if(new_mo!=NULL)
+	{
+                new_mo->handle = handle;
+		  sname = new_mo->module_name;
+		  strncpy(sname,name,(size_t)31);
+       	  list_add_1(&new_mo->list_node,&ctrl_function_list);//now it is install at the end;
+	}	
+}
+
+
+
+
+
+#if 0
+//install a module , module name can not the same,flag is the pri,function is the main func
+/*
+    handle ���?
+    name  ģ�����?
+    pri      �ú������ȼ�
+    dir      ����
+    function ��Ҫ���õĺ���
+*/
+
+static inline int add_module_function(int pri, int dir, int protype, unsigned short port,func_pro function)
+{
+
+       	  //��������Ķ˿ڶ��������ֽ�����Ϊ��д�ڶ�̬�������
+		 return _add_core_tu(function,dir, pri,protype , __hns(port));
+	
+}
+#endif 
+#if 0
+//delete a module from a link table accord the name
+void delete_module(const char * module_name)
+{
+	struct module_list * tmp;
+	struct list_head *pos = NULL;
+	list_for_each(pos,&ctrl_function_list)
+	{
+		tmp = list_entry(pos,struct module_list,list_node);
+		if(strcmp(tmp->module_name,module_name)==0)
+		//if(tmp->flag == flag)
+		{
+			dlclose(tmp->handle);//close the lib
+			free(tmp);
+			list_del(pos);
+		}
+	}
+}
+#endif
+
+//delete all module
+void trunc_module()
+{
+	uninitialize_core_matrix();
+	struct list_head *pos = NULL;
+	struct list_head *q   = NULL; 
+	struct module_list * tmp;
+	list_for_each_safe(pos, q, &ctrl_function_list)
+	{
+		tmp= list_entry(pos, struct module_list, list_node);
+              dlclose(tmp->handle);
+		free(tmp);
+		list_del(pos);
+	}
+}
+
+
+int load_ip(void * handle , const struct module_register*  _register)
+{
+	func_pro_ip main_ip;
+	char * error;
+	unsigned int* ip;
+	unsigned int proid;
+	main_ip = (func_pro_ip)dlsym(handle,_register->func_name);
+	if((error=dlerror())!=NULL)
+	{
+		fprintf(stderr,"%s\n",error);
+       	return -1; 
+	}
+	if(main_ip!=NULL)
+	{
+             proid =main_ip(ip); 
+		_add_core_ip(__hnl(*ip), proid);
+	}
+	
+	return 0;
+}
+int load_ip_group(void * handle , const struct module_register*  _register)
+{
+	func_pro_ipgroup main_ipg;
+	char * error;
+	unsigned int  ipf;
+	unsigned int  ipt;
+	unsigned int  proid;
+	main_ipg = (func_pro_ipgroup)dlsym(handle,_register->func_name);
+	if((error=dlerror())!=NULL)
+	{
+		fprintf(stderr,"%s\n",error);
+       	return -1; 
+	}
+	if(main_ipg!=NULL)
+	{
+	//this is the group
+     	    proid =main_ipg(&ipf,&ipt);
+	    for(;ipf<= ipt;ipf++)
+			_add_core_ip(__hnl(ipf), proid);
+	}
+	
+	return 0;
+}
+int load_rule(void * handle , const struct module_register*  _register)
+{
+  	func_pro main_1;
+	main_1 = (func_pro)dlsym(handle,_register->func_name);
+	char * error ;
+	if((error=dlerror())!=NULL)
+	{
+		//dlclose(handle);
+		fprintf(stderr,"%s\n",error);
+       	return -1; 
+	}
+	if(main_1!=NULL)
+	{
+	       if(_add_core_tu(main_1,_register->func_dir,
+		   					    _register->func_pri,
+		   					    _register->func_protype,
+		   					    __hns(_register->func_port))==-1)
+       	{
+	
+			fprintf(stderr,"error add module function:%s\n",_register->func_name);
+       	}
+	}
+}
+int load_module(const char* module_name)
+{
+	void* handle;
+   char *error;
+   int i = 0;
+ 	struct module_register*  _register; 
+ 	const struct module_register * reg;
+	f_register_mod_func register_mod_func;
+	struct list_head *pos = NULL;
+	struct module_list * tmp;
+
+/////////////////////////////////////////////////
+
+//����Ƿ��Ѿ�װ���ģ��
+   list_for_each(pos,&ctrl_function_list)
+	{
+	     tmp = list_entry(pos,struct module_list,list_node);
+	     if(strcmp(tmp->module_name,module_name)==0)
+	     {	
+			fprintf(stderr,"error has same module!\n");
+			return -1;
+	     }
+	} 
+	
+/////////////////////////////////////////////////
+   handle =dlopen(module_name,RTLD_NOW);
+   if(!handle)
+	{
+		fprintf(stderr,"%s\n",dlerror());
+		return -1;			
+	}	
+
+	//��ģ����ƺ;�������?
+	add_module_tolist(handle,module_name);
+	dlerror();
+
+   register_mod_func = (f_register_mod_func)dlsym(handle,"register_mod");
+	   //���̬����û��ע�ắ���ӵ��ÿ�?
+	if((error=dlerror())!=NULL)
+   	{
+		dlclose(handle);
+		fprintf(stderr,"%s\n",error);
+              return -1; 
+	   		
+   	}
+       else
+       {
+       //������Բ��ú���ע�ᣬ������ֱ�ӵõ�dll����
+       	int nfun = register_mod_func(&_register);
+	      if(_register==NULL)
+	       {
+	       	fprintf(stderr,"this is error for register!\n");
+			return -1;
+	       }
+		
+		for(i = 0;i<nfun;i++)
+		{
+			//����ģ���е����к���
+		   dlerror();
+		   reg = &_register[i];
+			switch(reg->func_type)
+			{
+				case FUNC_IP:
+					load_ip(handle,reg);
+					break;
+				case FUNC_IP_GROUP:
+					load_ip_group(handle, reg);
+					break;
+				case FUNC_RULE:
+					load_rule(handle, reg);
+					break;
+			}
+
+
+		}
+		if(nfun<0)
+		{
+	      fprintf(stderr,"this is error for register of func number!\n");
+			dlclose(handle);
+			return -1;
+		}
+		   
+       }
+
+
+	return 1;
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////
+//
+
+unsigned int analyse_protocol_2(TPktinfo* info,u32 timer)
+{
+#define get_res_hip(x)  (x>>16)%MATRIX_IP_H
+	u16 hip   = get_res_hip(info->innerip);
+	u16 hport = (info->innerport % MATRIX_PORT_H);
+       u32 plen = info->iplen - info->headerlen ; 
+	struct core_matrix* cm;
+	struct hlist_head * head_res ;
+	struct hlist_head * head_port;
+
+	u32 ret = 0;
+	if(info->protype == IP_TCP)
+	{
+		head_res  = &g_core_matrix_t[hip][hport];
+		head_port = &g_core_pro_portt[0];
+	}
+	else
+	{
+		head_res  = &g_core_matrix_u[hip][hport];
+		head_port = &g_core_pro_portu[0];
+	}
+	//the first step , is to find the source ip source port in matrix
+	cm = analyse_in_matrix_search(head_res,info->innerip,info->innerport, timer,plen);
+	if(cm!=NULL)
+	{
+		if(cm->proid >=3)
+			return cm->proid;
+		else
+         ret = analyse_in_matrix_count(cm,timer, plen);
+		if(ret >=3)
+			return ret;
+	}
+	else
+	{
+	   //create the node
+		cm = create_mem_for_matrix(head_res,info->innerip,info->innerport,0,timer);
+		if(plen>MAX_PER_COUNT)
+			cm->sensitive_count=1;
+			
+		cm->count = 1;
+		cm->proid = 0;
+		cm->ip = info->innerip;
+		cm->port = info->innerport;
+	}
+	
+
+	//second step : analyse with port
+	
+	ret = analyse_in_matrix_1(head_port,info->outerip,info->outerport,info->dir,info->payload,plen);
+	if(GOOD_RES)
+	{
+		cm->proid = ret;//save the value
+		return ret;
+	}
+	//third step : analyse with 0 port
+
+	ret = analyse_in_matrix_2(head_port,info->dir,info->payload,plen);
+	if(GOOD_RES)
+	{
+		cm->proid = ret ;//save the value
+		return ret;
+	}
+
+	UNTOUCHED_NUMBER;
+
+}
+
+
+unsigned int analyse_protocol(u32 innerip,u16 innerport,u32 outerip,u16 outerport,u8 protype,u8 dir, u8*payload, u32 plen,u32 timer)
+{
+#define get_res_hip(x)  (x>>16)%MATRIX_IP_H
+	u16 hip   = get_res_hip(innerip);
+	u16 hport = (innerport %  MATRIX_PORT_H );
+
+	struct core_matrix* cm;
+	struct hlist_head * head_res ;
+	struct hlist_head * head_port;
+
+	u32 ret = 0;
+	if(protype == IP_TCP)
+	{
+		head_res  = &g_core_matrix_t[hip][hport];
+		head_port = &g_core_pro_portt[0];
+	}
+	else
+	{
+		head_res  = &g_core_matrix_u[hip][hport];
+		head_port = &g_core_pro_portu[0];
+	}
+	//the first step , is to find the source ip source port in matrix
+	cm = analyse_in_matrix_search(head_res,innerip,innerport,timer,plen);
+	if(cm!=NULL)
+	{
+		if(cm->proid >=3)
+			return cm->proid;
+		else
+         ret = analyse_in_matrix_count(cm,timer, plen);
+		if(ret >=3)
+			return ret;
+	}
+	else
+	{
+	   //create the node
+		cm = create_mem_for_matrix(head_res,innerip,innerport,0,timer);
+		if(plen>MAX_PER_COUNT)
+			cm->sensitive_count=1;
+			
+		cm->count = 1;
+		cm->proid = 0;
+		cm->ip = innerip;
+		cm->port = innerport;
+	}
+	
+
+	//second step : analyse with port
+	
+	ret = analyse_in_matrix_1(head_port,outerip,outerport,dir,payload,plen);
+	if(GOOD_RES)
+	{
+		cm->proid = ret;//save the value
+		return ret;
+	}
+	//third step : analyse with 0 port
+
+	ret = analyse_in_matrix_2(head_port,dir,payload,plen);
+	if(GOOD_RES)
+	{
+		cm->proid = ret ;//save the value
+		return ret;
+	}
+
+	UNTOUCHED_NUMBER;
+}
+
+//���ļ��ж�ȡ�������õ�module
+
+void analyse_initialize()
+{
+	initialize_core_matrix();
+	read_module_config_2(load_module);
+}
+void analyse_uninitialize()
+{
+	uninitialize_core_matrix();
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//��Ϊ����
+//�����һ��tcp�˿����������ܶ��������ݰ��Ҷ�����1400�ֽڣ��ҽ�����Ϊ��p2pЭ��
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#if 0
+static void __add_core_ip(void)
+{
+
+	/*_add_core_ip((u32)2439782106,(u32)PRO_SINA_IGAME);//218.30.108.145
+	_add_core_ip((u32)3559341370,(u32)PRO_XUNLEI);//58.61.39.212
+	_add_core_ip((u32)3509009722,(u32)PRO_XUNLEI);//58.61.39.209
+	_add_core_ip((u32)3542564154,(u32)PRO_XUNLEI);//58.61.39.211
+	_add_core_ip((u32)269754074,(u32)PRO_YUANHANG);//218.30.20.16
+	_add_core_ip((u32)439626206,(u32)PRO_YUANHANG);//222.41.52.26
+	_add_core_ip((u32)622075610,(u32)PRO_YUANHANG);//218.30.20.37
+	_add_core_ip((u32)655630042,(u32)PRO_YUANHANG);//218.30.20.39*/
+}
+
+#endif 
+#if 0
+#define GET_UP_INNER_IP(data)		(*(__u32*)(data+12))
+#define GET_UP_OUTTER_IP(data)        (*(__u32*)(data+16))
+
+#define GET_DOWN_INNER_IP(data)     (*(__u32*)(data+16))
+#define GET_DOWN_OUTTER_IP(data)     (*(__u32*)(data+12))
+
+
+#define GET_UP_INNER_PORT(ihl,data)   (data[ihl]*256+data[ihl+1])
+#define GET_UP_OUTTER_PORT(ihl,data)  (data[ihl+2]*256+data[ihl+3])
+
+#define GET_DOWN_INNER_PORT(ihl,data)  GET_UP_OUTTER_PORT(ihl,data)
+#define GET_DOWN_OUTTER_PORT(ihl,data) GET_UP_INNER_PORT(ihl,data)
+static inline int get_ip_pack_h_len(const unsigned char *data)
+{
+	return 4*(data[0] & 0x0f);
+}
+
+static inline void get_conntrack_info(const unsigned char *data, 
+									 char protocol ,
+									 int up_down,
+									 unsigned int * pinner_ip,
+									 unsigned short* pinner_port,
+									 unsigned int * poutter_ip,
+									 unsigned short * poutter_port
+									 ) 
+{
+
+	int ip_hl = get_ip_pack_h_len(data);//get the ip package length
+
+	if(up_down == DIR_UP)
+	{
+		*pinner_ip    = GET_UP_INNER_IP(data);
+		*poutter_ip   = GET_UP_OUTTER_IP(data);
+		*pinner_port  = GET_UP_INNER_PORT(ip_hl,data);
+		*poutter_port = GET_UP_OUTTER_PORT(ip_hl,data);
+	}
+	else
+	{
+		*pinner_ip    = GET_DOWN_INNER_IP(data);
+		*poutter_ip   = GET_DOWN_OUTTER_IP(data);
+		*pinner_port  = GET_DOWN_INNER_PORT(ip_hl,data);
+		*poutter_port = GET_DOWN_OUTTER_PORT(ip_hl,data);
+	}
+}
+
+static inline int app_data_offset(const unsigned char *data,char ip_protocol)
+{
+	int ip_hl = get_ip_pack_h_len(data);
+
+	if(ip_protocol == IPPROTO_TCP){
+		// 12 == offset into TCP header for the header length field.
+		int tcp_hl = 4*(data[ip_hl + 12]>>4);
+		return ip_hl + tcp_hl;
+	}
+	else if(ip_protocol == IPPROTO_UDP)//udp
+		return ip_hl+8;
+	else //we can not regonize the package is tcp or udp
+		return ip_hl+8;
+}
+#endif 
+

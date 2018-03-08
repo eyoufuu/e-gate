@@ -1,0 +1,29 @@
+#include "post.h"
+#include "serv.h"
+#include "emp.h"
+#include "ctl.h"
+#include "account.h"
+
+
+extern inline TEmpnode* user_getipempptr();
+inline void post_handle(u8* pdata,u16 datalen,u8* mac)
+{
+	ctl_setpkthead(g_sendpkthead,44+datalen,LOG_POST);//sip(4byte) +dip+sport+dport+seq+ack+accid
+	TEmpnode* pemp = user_getipempptr();
+        u32 accid = 0;
+        memcpy(g_sendpkthead+14,&g_pkt.innerip,4);
+	memcpy(g_sendpkthead+18,&g_pkt.outerip,4);
+	memcpy(g_sendpkthead+22,&g_pkt.innerport,2);
+	memcpy(g_sendpkthead+24,&g_pkt.outerport,2);
+        memcpy(g_sendpkthead+26,mac,6);       
+	if(unlikely(SYS_LONGIN == emp_getempmode(pemp)))
+	{
+		accid =  emp_getempaccid(pemp);
+	}
+	memcpy(g_sendpkthead+32,&accid,4);
+        memcpy(g_sendpkthead+36,&g_pkt.seq,4);
+       	memcpy(g_sendpkthead+40,&g_pkt.ack,4);
+	serv_sendto(g_sendpkthead,44);
+	serv_sendto(pdata,datalen);
+}
+

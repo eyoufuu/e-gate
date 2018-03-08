@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/safer10/!svn/ver/21/trunk/Kernel/core/lib/pkgconfig
+END
+libnfnetlink.pc
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/safer10/!svn/ver/21/trunk/Kernel/core/lib/pkgconfig/libnfnetlink.pc
+END
+neon.pc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/safer10/!svn/ver/21/trunk/Kernel/core/lib/pkgconfig/neon.pc
+END
+libnetfilter_queue.pc
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/safer10/!svn/ver/21/trunk/Kernel/core/lib/pkgconfig/libnetfilter_queue.pc
+END

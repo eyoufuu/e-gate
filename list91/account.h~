@@ -1,0 +1,20 @@
+#ifndef _ACCOUNT_H
+#define _ACCOUNT_H
+
+
+typedef struct _TAccount{
+	u32 usedip;
+	u8   name[32];
+	u8   passwd[32];
+	u32 groupid;
+	u32 personid;
+	u32 bindip;
+	u32 onpolicyid;
+	u32 offpolicyid;
+	u32 issmtplog;
+	u32 ispop3log;
+	u32 ispostlog;
+	u32 iswebmaillog;		
+}TAccount;
+
+#endif

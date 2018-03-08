@@ -1,0 +1,216 @@
+/*File: log2.c
+    Copyright 2009 10 LINZ CO.,LTD
+    Author(s): fuyou (a45101821@gmail.com)
+ */
+
+#include "log2.h"
+
+struct hlist_head g_loglist[MAX_IP][MAX_NETSEG][MAX_PRO];
+u32 g_instraffic = INS_TRA_OPEN; // 0 closed; 1 open
+u32 g_loginterval;// >0 log traffic db val is interval time
+pthread_t g_thrid = 0;
+u32 g_insmode = 0;
+
+inline u32 log2_getintervaltime()
+{
+	return g_loginterval;
+}
+inline void log2_setintervaltime(u32 val)
+{
+	g_loginterval = val*60;
+}
+inline u32 log2_getinstrafficflag()
+{
+	return g_instraffic;
+}
+inline void log2_setinstrafficflag(u32 val)
+{
+	g_instraffic = val;
+}
+inline void log2_initloglist()
+{
+	u32 i,j,k;
+	for(i=0;i<MAX_IP;i++)
+	{
+		for(j=0;j<MAX_NETSEG;j++)
+		{
+			for(k=0;k<MAX_PRO;k++)
+			{
+				INIT_HLIST_HEAD(&g_loglist[i][j][k]);
+			}			
+		}		
+	}
+}
+
+inline TLognode* log2_getlognode(u8 iphash,u8 netseghash,u8 proid,u32 ip)
+{
+	struct hlist_node *pos,*n;
+	TLognode* node;
+	hlist_for_each_safe(pos,n,&g_loglist[iphash][netseghash][proid])
+	{
+		node = hlist_entry(pos,TLognode,lognode);
+		if(node->log.ip == ip)
+		{
+			return node;
+		}		
+	}
+	return NULL;
+}
+inline void log2_addlognode(u8 iphash,u8 netseghash,u8 proid,u32 ip)
+{
+	TLognode* pLog = (TLognode*)malloc(sizeof(TLognode));
+	if(likely(pLog != NULL))
+	{
+		pLog->log.activetime = 0;
+		pLog->log.ip = ip;
+		pLog->log.insup = 0;
+		pLog->log.insdown = 0;
+		pLog->log.staup = 0;
+		pLog->log.stadown = 0;
+		pLog->log.stapassnum = 0;
+		pLog->log.stablocknum = 0;
+		hlist_add_head(&pLog->lognode,&g_loglist[iphash][netseghash][proid]);
+	}
+}
+inline void log2_dellognode(u8 iphash,u8 netseghash,u8 proid,u32 ip)
+{
+	struct hlist_node *pos,*n;
+	TLognode* node;
+	hlist_for_each_safe(pos,n,&g_loglist[iphash][netseghash][proid])
+	{
+		node = hlist_entry(pos,TLognode,lognode);
+		if(node->log.ip == ip)
+		{
+			hlist_del(pos);
+			free(node);
+		}
+	}
+}
+inline void log2_delunactivelognode()
+{
+	
+}
+inline void log2_updatelognode(u8 iphash,u8 netseghash,u8 proid,u32 ip,u32 dir,u32 size,u32 pass)
+{
+        	
+    //	node->log.activetime = g_ptm->curtime;
+                if(g_loginterval>0)
+                {
+                	TLognode* node = log2_getlognode(iphash,netseghash,proid,ip);
+		        	if(unlikely(node == NULL))
+		        	{
+		        		log2_addlognode(iphash,netseghash,proid,ip);
+		        		return;
+		        	}
+        	        if(pass == PKT_BLOCK)
+        		{
+        			node->log.stablocknum++;
+                                return;
+        		}
+        		else
+        		{
+        			node->log.stapassnum++;
+        		}
+        		if(dir == DIR_CS)
+        		{
+        			node->log.staup += size;
+        		}
+        		else
+        		{
+        			node->log.stadown += size;
+        		}
+                 }		
+        	if(unlikely(g_instraffic == INS_TRA_OPEN))
+        	{
+        	        if(pass == PKT_BLOCK)
+                        {
+                                return;
+                        }
+				TLognode* node = log2_getlognode(iphash,netseghash,proid,ip);
+	        	if(unlikely(node == NULL))
+	        	{
+	        		log2_addlognode(iphash,netseghash,proid,ip);
+	        		return;
+	        	}	
+        		if(dir == DIR_CS)
+                        {      
+        			node->log.insup += size;
+                        }
+        		else
+                        {      
+        			node->log.insdown += size;
+                        }
+        	}
+}
+void* ins_traffic(void* para)
+{
+#define TABLE_DEFINE_CMD_INSERT "insert into"
+#define TABLE_DEFINE_PRO_DATA "(logtime,ip,up,down,proid,protype)"
+	u32 i,j,k;
+
+	char buf[200];
+
+	while(1)
+	{
+		if(g_instraffic == INS_TRA_CLOSE)
+		{
+			g_thrid = 0;
+			break;
+		}             
+                	for(i=0;i<MAX_IP;i++)
+    		{
+    			for(j=0;j<MAX_NETSEG;j++)
+    			{                			        
+    				//LOCK_IP(i,j);//no need to lock
+                                 	for(k=0;k<MAX_PRO;k++)
+            			{
+            				struct hlist_node *pos,*n;
+            				TLognode* node;
+            				hlist_for_each_safe(pos,n,&g_loglist[i][j][k])
+            				{
+            					node = hlist_entry(pos,TLognode,lognode);
+            					if(node->log.insdown ||node->log.insup)
+            					{
+							//buf[0] = '\0';	            					
+	            					sprintf(buf,"%s %s %s values(%u,%u,%u,%u,%d,%d)",TABLE_DEFINE_CMD_INSERT,"instraffic",\
+										TABLE_DEFINE_PRO_DATA,g_ptm->curtime,__hnl(node->log.ip),node->log.insup,node->log.insdown,k,0);
+							sql_query("baseconfig",buf);
+	            					node->log.insdown = 0;
+	            					node->log.insup = 0;
+            					}
+            				}
+            			 }
+                              	//UNLOCK_IP(i,j);
+                            }
+                    }  
+		 sprintf(buf,"delete from instraffic where timeseg<=%d",g_ptm->curtime-300);//safe 5min instanse data
+		 sql_query("baseconfig",buf);
+		 sleep(3);
+	}
+	pthread_detach(pthread_self());
+	return ((void*)0);
+}
+void log2_insertinssumtraffic()
+{
+	char buf[200];
+	sprintf(buf,"insert into instraffic values(0,0,0,0,0,0)");
+	sql_query("baseconfig",buf);
+}
+void log2_updateinssumtraffic(u32 upflow,u32 downflow)
+{
+	char buf[200];
+	sprintf(buf,"update instraffic set logtime = %u,up=%u,down=%u where ip=0",\
+		g_ptm->curtime,upflow,downflow);
+	sql_query("baseconfig",buf);
+}
+void log2_createinsthread()
+{
+	if(g_thrid == 0)
+	{
+		int err = pthread_create(&g_thrid,NULL,ins_traffic,NULL);
+		if(0 != err)
+		{
+			DEBUG(D_FATAL)("ins_traffic faild\n");
+		}
+	}
+}

@@ -1,0 +1,71 @@
+#ifndef _EMP_H
+#define _EMP_H
+
+#include "list.h"
+#include "globle.h"
+
+#define TIMEGATE_CLOSE 0
+#define TIMEGATE_OPEN 1 
+
+extern struct hlist_head g_ipemplist[MAX_IP];
+
+typedef struct _TTimescope{
+	u16 open; //open or close
+	u16 week;
+	u16 times1;
+	u16 timee1;
+	u16 times2;
+	u16 timee2;
+}TTimescope;
+
+typedef struct _TEmployee{
+	u32 ip;
+	u32 mode; //µÇÂŒ×ŽÌ¬£¬ip£¬login£¬logout
+	u8  account[100];//if mode=!ip rec account
+	u32 specip;//0,ºÚÃûµ¥ 1£¬°×Ãûµ¥ 2 ,·ÇÌØÊâ
+	u32 onpolicyid;//ÉÏ°à²ßÂÔ
+	u32 offpolicyid; //ÏÂ°à²ßÂÔ
+	u32 groupid;
+	u32 personid;
+	u32 activetime;
+	
+	u32 smtp;
+	u32 pop3;
+	u32 webmail;
+	u32 post;
+	
+}TEmployee;
+typedef struct _TIpempnode{
+	TEmployee emp;
+	struct hlist_node ipempnode;
+}TIpempnode;
+
+inline void emp_initipemplist();
+
+inline void emp_insertipempnode(u16 hash,TEmployee* pEm);
+inline void emp_delipempnode(u16 hash);
+
+inline TIpempnode* emp_getipempnode(u16 hash);
+
+inline void emp_updateipempnode(u16 hash,TEmployee* pEm);
+
+inline u32 emp_getempmode(TIpempnode* p);
+
+inline u32 emp_getempspecip(TIpempnode* p);
+
+inline u32 emp_getemppolicyid(TIpempnode* p);
+
+inline u32 emp_getempgroupid(TIpempnode* p);
+inline u32 emp_getempid(TIpempnode* p);
+
+inline u32 emp_getempactivetime(TIpempnode* p);
+inline void emp_updateactivetime(TIpempnode* p,u32 time);
+
+inline u32 emp_getempsmtp(TIpempnode* p);
+inline u32 emp_getemppop3(TIpempnode* p);
+inline u32 emp_getempget(TIpempnode* p);
+inline u32 emp_getemppost(TIpempnode* p);
+
+
+#endif
+

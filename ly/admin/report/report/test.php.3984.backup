@@ -1,0 +1,191 @@
+<?php
+
+/*
+
+   * Modified: 2010-3-2
+
+   * By: qianbo (qianbo@chd.edu.cn)
+
+   *
+
+   * Created: 2010-3-1
+
+   * By: qianbo (qianbo@chd.edu.cn)
+
+   *
+
+*/ 
+
+   require_once('_inc.php');
+
+?>
+
+
+
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>test page</title>	
+		<link type="text/css" rel="stylesheet" href="./chart/visualize.jQuery.css"/>
+		<link type="text/css" rel="stylesheet" href="./chart/demopage.css"/>
+		<script type="text/javascript" src="./chart/jquery.min.js"></script>
+		<script type="text/javascript" src="./chart/time.js"></script>
+		
+		<!--[if IE]><script type="text/javascript" src="./chart/excanvas.compiled.js"></script><![endif]-->
+		<script type="text/javascript" src="./chart/visualize.jQuery.js"></script>
+		<script type="text/javascript">
+			function get_graph(){
+				//make some charts
+				$('table').visualize({type: 'pie', pieMargin: 10, title: ''});
+				$('table').visualize({type: 'line'});
+				$('table').visualize({type: 'area'});
+				$('table').visualize();
+			};
+
+                         function get_line(){
+                                  $('table').visualize({type: 'line'});
+
+
+                         };
+                         function get_pie() {
+
+                             $('table').visualize({type: 'pie', pieMargin: 10, title: ''});         
+                         }         
+                         function get_pie1() {
+
+                             $('table').visualize({type: 'pie', pieMargin: 10, title: ''});         
+                         }         
+		</script>
+                 <link href="../common/main.css" rel="stylesheet" type="text/css"/><script type="text/javascript" src="../common/common.js"></script>
+
+	</head>
+	<body>	
+ 
+  
+   <br>
+	
+        <div class="common" style="width: 800px"> 
+        <div class="common_title"> 
+        <div class="common_title_left"></div> 
+        <div class="common_title_word">top10阻挡协议</div> 
+        <div class="common_title_right"></div> 
+        </div> 
+	</div>		
+	<br>
+	<br>
+<!--以下表格要用php生成就可以了-->
+
+<?php
+
+
+
+$arr = "call top10blockpro(20100302,20100405,0,0,0,0)";
+#$arr = "select * form admin";
+$arr = $db->fetchRows($arr);
+
+
+?> 
+<table>
+	<caption></caption>
+	<thead>
+		<tr>
+			<td>协议名称</td>
+			<th></th>
+			
+		</tr>
+	</thead>
+	<tbody>
+           <?php
+                foreach($arr as $value) {        ?>     
+		<tr>
+			<th><?php echo $value['name'];  ?></th>
+			<td><?php echo $value['sumblock'];  ?></td>
+			
+		</tr>
+	    <?php	
+              }
+            
+              unset($arr);
+        
+	   ?>	
+	</tbody>
+</table>
+
+<?php
+
+$db->close();
+$db->_open();
+?>
+
+
+<br>
+<br>
+ <br>
+	
+        <div class="common" style="width: 800px"> 
+        <div class="common_title"> 
+        <div class="common_title_left"></div> 
+        <div class="common_title_word">top10放行协议</div> 
+        <div class="common_title_right"></div> 
+        </div> 
+	</div>		
+	<br>
+	<br>
+<!--以下表格要用php生成就可以了-->
+<?php
+
+# $sql = "call top10blockpro(20100302,20100405)";
+
+
+$arr = "call top10passpro(20100302,20100405,0,0,0,0)";
+
+//$arr = $result->fetch_array($result);
+
+$arr = $db->fetchRows($arr);
+
+
+?> 
+
+<table>
+	<caption></caption>
+	<thead>
+		<tr>
+			<td>协议名称</td>
+			<th></th>
+			
+		</tr>
+	</thead>
+	<tbody>
+           <?php
+                foreach($arr as $value) {        ?>     
+		<tr>
+			<th><?php echo $value['name'];  ?></th>
+			<td><?php echo $value['sumpass'];  ?></td>
+			
+		</tr>
+	    <?php	
+              }
+            
+              unset($arr);
+        
+	   ?>	
+	</tbody>
+</table>
+
+<?php
+
+$db->close();
+$db->_open();
+?>
+
+<div align="left">
+		<script "text/javascript">
+			get_pie1();
+		</script>
+</div>
+
+<br>
+<br>
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+#ifndef __CORE_ENGINE_H_
+#define  __CORE_ENGINE_H_
+#include "globaldef.h"
+
+
+
+
+
+typedef unsigned int  (*func_pro)(
+							  unsigned char  ,//dir
+							  unsigned char * ,//payload
+							  unsigned int    );//plen
+
+typedef unsigned int (*func_pro_ip)(unsigned int * ip);
+typedef unsigned int (*func_pro_ipgroup)(unsigned int * ipf, unsigned int *ipt);
+
+
+
+void analyse_initialize();
+void analyse_uninitialize();
+unsigned int analyse_protocol_2(TPktinfo* info,u32 timer);
+unsigned int analyse_protocol(u32 innerip,u16 innerport,u32 outerip,u16 outerport,u8 protype,u8 dir, u8*payload, u32 plen,u32 timer);
+//unsigned int analyse_protocol_struct(
+#endif 
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "  http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<?php
+   require_once('_inc.php');
+?>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>updownflow</title>	
+     	<link type="text/css" rel="stylesheet" href="./mychart/demopage.css"/>		
+	   <script type="text/javascript" src="./mychart/enhance.js"></script>		
+ 		<script type="text/javascript">
+      	enhance({
+	      	  loadScripts: [
+				'./mychart/excanvas.js',
+				'./mychart/jquery.min.js',
+				'./mychart/visualize.jQuery.js',
+				'./mychart/example.js'
+			],
+			loadStyles: [
+				'./mychart/visualize.css',
+				'./mychart/visualize-light.css'
+			]	
+		});   
+    	</script>		
+     </head>
+<body>	
+
+<!--以下表格要用php生成就可以了-->
+<table>
+ <caption>上下行流量</caption>
+ <thead>            
+		<tr><td>时间</td><th>上行流量</th><th>下行流量</th><th>总流量</th></tr>
+</thead>
+<tbody>
+	
+	<tr>
+		<th>test</th>
+		<td>12</td>
+		<td>13</td>
+		<td>14</td>
+	</tr>	
+
+</tbody>
+</table>
+</body>
+</html>

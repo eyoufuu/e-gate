@@ -1,0 +1,52 @@
+<script language="javascript">
+	    var g_json_object;
+		var g_json;
+        function GetUserNameValues(strValue)
+        {
+            $.get("ajax.php", {value:strValue}, function(text){
+			//write_t.innerText=text;
+              document.getElementById("write_t").innerText=text;
+            });
+        }
+		function log(mes)
+		{
+		   write_t.innerText = mes;
+		}
+		function getdata(strValue)
+		{
+			$.getJSON("data.php", function(g_json_object){
+			//g_json_object = json;
+			log("ok");
+			g_json_object.pop();
+			//alert("姓名：" + json[0].name);
+             /*for(var i = 0; i < json.length; i++)
+             {
+                 alert("姓名：" + json[i].name);
+                 alert("年龄：" + json[i].age);
+             }*/
+			 
+			 g_json = $.toJSON(g_json_object); 
+			 write_t.innerText=g_json;
+
+			});
+
+		}
+		
+		function Post_Data(ips,ipe)
+		{
+			//post_json_string = $.toJSON(g_json_object);
+			//write_t.innerText = post_json_string;
+			alert("ips="+ips+"&ipe="+ipe);
+			$.ajax({
+			type: "POST",
+			//async: false,
+			url: "simple_tc_post.php",
+			data: "ips="+ips+"&ipe="+ipe,
+			success: function()
+			{
+				alert( "数据已经成功保存: ");
+			}
+			})
+		}
+
+</script>
